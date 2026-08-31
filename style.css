@@ -119,6 +119,23 @@ a {
 /* ==========================================================================
    1. Floating Liquid Glass Navbar
    ========================================================================== */
+.mobile-nav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1050;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.mobile-nav-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .floating-nav-wrapper {
   position: fixed;
   top: 16px;
@@ -147,6 +164,14 @@ a {
   border: 1px solid rgba(255, 255, 255, 0.85);
   box-shadow: var(--shadow-nav), inset 0 1px 1px rgba(255, 255, 255, 0.9);
   transition: all var(--transition-snappy);
+}
+
+.nav-bar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
 }
 
 .brand-link {
@@ -220,43 +245,9 @@ a {
   transition: transform var(--transition-fast);
 }
 
-.mobile-dropdown {
+/* Hidden on desktop */
+.mobile-expanded-pane {
   display: none;
-  position: absolute;
-  top: 56px;
-  width: calc(100% - 32px);
-  max-width: 380px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(28px) saturate(190%);
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: var(--radius-card);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-  padding: 14px;
-  flex-direction: column;
-  gap: 6px;
-  pointer-events: auto;
-}
-
-.mobile-dropdown.open {
-  display: flex;
-}
-
-.mobile-item {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-dark);
-  padding: 10px 14px;
-  border-radius: var(--radius-pill);
-}
-
-.mobile-item:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.btn-mobile-cta {
-  width: 100%;
-  margin-top: 6px;
 }
 
 /* ==========================================================================
@@ -1552,37 +1543,281 @@ a {
 }
 
 /* ==========================================================================
-   15. Responsive Breakpoints
+   15. Responsive Breakpoints & Mobile Optimization
    ========================================================================== */
 @media (max-width: 768px) {
+  body {
+    padding-bottom: 96px; /* Room for floating bottom capsule navbar */
+  }
+
+  /* Bottom Center Floating Morphing Navbar */
+  .floating-nav-wrapper {
+    top: auto;
+    bottom: 18px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 1100;
+    padding: 0 16px;
+    pointer-events: none;
+  }
+
+  .nav-glass {
+    pointer-events: auto;
+    width: 100%;
+    max-width: 390px;
+    height: 54px;
+    border-radius: var(--radius-pill);
+    padding: 7px 10px 7px 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(32px) saturate(190%);
+    -webkit-backdrop-filter: blur(32px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.92);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.14), 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: height 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+                border-radius 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+                padding 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+                background 0.3s ease,
+                box-shadow 0.3s ease;
+  }
+
+  .floating-nav-wrapper.is-expanded .nav-glass {
+    height: 380px;
+    border-radius: 24px;
+    padding: 14px 16px 18px;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24), 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  .nav-bar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 38px;
+    flex-shrink: 0;
+  }
+
+  .navbar-logo-img {
+    height: 28px;
+  }
+
   .nav-menu {
     display: none;
   }
 
-  .mobile-nav-btn {
+  .nav-cta-wrap {
     display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 8px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
+  .floating-nav-wrapper.is-expanded .nav-cta-wrap {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.9);
+  }
+
+  .btn-nav {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+  }
+
+  .mobile-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #F1F3F5;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0;
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+  }
+
+  .mobile-nav-btn:hover {
+    background: #E2E8F0;
+  }
+
+  .mobile-nav-btn .bar {
+    width: 15px;
+    height: 2px;
+    background: var(--text-dark);
+    border-radius: 2px;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  }
+
+  .floating-nav-wrapper.is-expanded .mobile-nav-btn .bar-1 {
+    transform: translateY(3px) rotate(45deg);
+  }
+
+  .floating-nav-wrapper.is-expanded .mobile-nav-btn .bar-2 {
+    transform: translateY(-3px) rotate(-45deg);
+  }
+
+  .mobile-expanded-pane {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+    transition: opacity 0.28s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .floating-nav-wrapper.is-expanded .mobile-expanded-pane {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .mobile-nav-divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 10px 0 6px;
+    width: 100%;
+  }
+
+  .mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mobile-item {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    padding: 9px 12px;
+    border-radius: var(--radius-pill);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .mobile-item:hover, .mobile-item:active {
+    background: var(--primary-red-tint);
+    color: var(--primary-red);
+  }
+
+  .mobile-cta-bottom {
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  /* Floating Language Switcher on Mobile */
   .floating-lang-wrapper {
-    top: 18px;
+    top: 14px;
     right: 14px;
   }
 
+  /* Floating Contact Widget on Mobile (Floats above bottom navbar) */
+  .morph-contact-widget {
+    bottom: 84px;
+    right: 16px;
+  }
+
+  .morph-contact-widget.is-expanded {
+    width: calc(100vw - 32px);
+    height: 500px;
+    bottom: 18px;
+    right: 16px;
+    z-index: 1200;
+  }
+
+  /* Hero Section on Mobile */
   .hero-section {
-    padding: 140px 0 80px;
+    padding: 100px 16px 50px;
+  }
+
+  .hero-heading {
+    font-size: clamp(2.1rem, 8vw, 2.7rem);
+    line-height: 1.14;
+    margin-bottom: 14px;
+  }
+
+  .hero-subtext {
+    font-size: 0.975rem;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
   }
 
   .hero-picture-cloud {
-    opacity: 0.22;
+    opacity: 0.18;
+    top: 10px;
+  }
+
+  /* Section Containers on Mobile */
+  .section-container {
+    padding: 60px 0 70px;
+  }
+
+  .section-heading {
+    font-size: clamp(1.8rem, 6.5vw, 2.2rem);
+    margin-bottom: 10px;
+  }
+
+  .section-subheading {
+    font-size: 0.95rem;
+    margin-bottom: 32px;
   }
 
   .card-grid-three, .card-grid-two {
     grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .ios-card {
+    padding: 22px 18px;
+    border-radius: 12px;
+  }
+
+  .btn-about-modal {
+    width: 100%;
+    min-width: unset;
+    padding: 13px 20px;
+    font-size: 0.95rem;
+  }
+
+  /* Pathways Switcher on Mobile */
+  .audience-toggle-wrapper {
+    margin-bottom: 28px;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .toggle-pill-btn {
+    font-size: 0.82rem;
+    padding: 7px 10px;
   }
 
   .callout-box, .callout-box-dark {
     flex-direction: column;
     text-align: center;
+    padding: 24px 18px;
+    border-radius: 12px;
   }
 
   .callout-actions {
@@ -1594,31 +1829,26 @@ a {
     width: 100%;
   }
 
+  /* Schedule on Mobile */
   .schedule-row {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+    padding: 18px;
+    border-radius: 12px;
   }
 
   .schedule-loc {
-    align-self: flex-end;
+    align-self: flex-start;
+    font-size: 0.775rem;
   }
 
-  .morph-contact-widget {
-    bottom: 18px;
-    right: 18px;
-  }
-
-  .morph-contact-widget.is-expanded {
-    width: calc(100vw - 36px);
-    height: 500px;
-    bottom: 18px;
-    right: 18px;
-  }
-
+  /* Deep Dive Modal on Mobile */
   .deep-dive-modal {
     width: calc(100vw - 24px);
-    max-height: 90vh;
+    height: 85vh;
+    max-height: 85vh;
+    border-radius: 16px;
   }
 
   .deep-dive-header {
@@ -1640,5 +1870,10 @@ a {
 
   .deep-dive-footer .btn {
     width: 100%;
+  }
+
+  /* Toast Notification */
+  .ios-toast {
+    bottom: 84px;
   }
 }

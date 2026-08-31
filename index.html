@@ -22,47 +22,55 @@
 </head>
 <body>
 
-  <!-- Floating Liquid Glass Navbar -->
-  <header class="floating-nav-wrapper">
-    <nav class="nav-glass" aria-label="Main Navigation">
-      <a href="#" class="brand-link" aria-label="UiA Case Club Home">
-        <img src="assets/logo.png" alt="UiA Case Club" class="navbar-logo-img">
-      </a>
-
-      <!-- Navigation Links -->
-      <div class="nav-menu">
-        <a href="#about" class="nav-item" data-i18n="nav_about">About</a>
-        <a href="#audiences" class="nav-item" data-i18n="nav_pathways">Pathways</a>
-        <a href="#schedule" class="nav-item" data-i18n="nav_schedule">Schedule</a>
-        <a href="#social" class="nav-item" data-i18n="nav_social">Social</a>
-        <a href="#faq" class="nav-item" data-i18n="nav_faq">FAQ</a>
-      </div>
-
-      <!-- Action Button -->
-      <div class="nav-cta-wrap">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdJ9Ol_Li7k5ljvVv1ecCOG3ly1c0FMGzlRXK3NAT-8b0hvaA/viewform?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-nav" data-i18n="btn_join_nav">
-          Join Club
+  <!-- Floating Liquid Glass Navbar (Desktop: Top Island | Mobile: Bottom Morphing Capsule) -->
+  <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" aria-hidden="true"></div>
+  <header class="floating-nav-wrapper" id="main-nav-wrapper">
+    <nav class="nav-glass" id="nav-glass" aria-label="Main Navigation">
+      <div class="nav-bar-top">
+        <a href="#" class="brand-link" aria-label="UiA Case Club Home">
+          <img src="assets/logo.png" alt="UiA Case Club" class="navbar-logo-img">
         </a>
+
+        <!-- Desktop Navigation Links -->
+        <div class="nav-menu">
+          <a href="#about" class="nav-item" data-i18n="nav_about">About</a>
+          <a href="#audiences" class="nav-item" data-i18n="nav_pathways">Pathways</a>
+          <a href="#schedule" class="nav-item" data-i18n="nav_schedule">Schedule</a>
+          <a href="#social" class="nav-item" data-i18n="nav_social">Social</a>
+          <a href="#faq" class="nav-item" data-i18n="nav_faq">FAQ</a>
+        </div>
+
+        <!-- Action Button -->
+        <div class="nav-cta-wrap">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdJ9Ol_Li7k5ljvVv1ecCOG3ly1c0FMGzlRXK3NAT-8b0hvaA/viewform?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-nav" data-i18n="btn_join_nav">
+            Join Club
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle Button (Morphs to X) -->
+        <button class="mobile-nav-btn" id="mobile-nav-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="bar bar-1"></span>
+          <span class="bar bar-2"></span>
+        </button>
       </div>
 
-      <!-- Mobile Menu Button -->
-      <button class="mobile-nav-btn" id="mobile-nav-btn" aria-label="Toggle navigation menu" aria-expanded="false">
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
+      <!-- Morphing Mobile Expanded Content -->
+      <div class="mobile-expanded-pane" id="mobile-expanded-pane" aria-hidden="true">
+        <div class="mobile-nav-divider"></div>
+        <div class="mobile-nav-links">
+          <a href="#about" class="mobile-item" data-i18n="nav_about">About</a>
+          <a href="#audiences" class="mobile-item" data-i18n="nav_pathways">Pathways</a>
+          <a href="#schedule" class="mobile-item" data-i18n="nav_schedule">Schedule</a>
+          <a href="#social" class="mobile-item" data-i18n="nav_social">Social Media</a>
+          <a href="#faq" class="mobile-item" data-i18n="nav_faq">FAQ</a>
+        </div>
+        <div class="mobile-cta-bottom">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdJ9Ol_Li7k5ljvVv1ecCOG3ly1c0FMGzlRXK3NAT-8b0hvaA/viewform?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block btn-mobile-cta" data-i18n="btn_join_mobile">
+            Join UiA Case Club
+          </a>
+        </div>
+      </div>
     </nav>
-
-    <!-- Mobile Dropdown Menu -->
-    <div class="mobile-dropdown" id="mobile-dropdown">
-      <a href="#about" class="mobile-item" data-i18n="nav_about">About</a>
-      <a href="#audiences" class="mobile-item" data-i18n="nav_pathways">Pathways</a>
-      <a href="#schedule" class="mobile-item" data-i18n="nav_schedule">Schedule</a>
-      <a href="#social" class="mobile-item" data-i18n="nav_social">Social Media</a>
-      <a href="#faq" class="mobile-item" data-i18n="nav_faq">FAQ</a>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdJ9Ol_Li7k5ljvVv1ecCOG3ly1c0FMGzlRXK3NAT-8b0hvaA/viewform?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-mobile-cta" data-i18n="btn_join_mobile">
-        Join UiA Case Club
-      </a>
-    </div>
   </header>
 
   <!-- Top Right Floating Language Switcher (Smooth Sliding Pill Toggle) -->

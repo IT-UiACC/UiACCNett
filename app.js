@@ -388,37 +388,65 @@ function updateAudienceGlider() {
 }
 
 /* ==========================================================================
-   3. Floating Navbar Mobile Menu
+   3. Bottom Morphing Liquid Glass Mobile Navbar
    ========================================================================== */
 function initMobileNavigation() {
+  const wrapper = document.getElementById('main-nav-wrapper');
   const toggleBtn = document.getElementById('mobile-nav-btn');
-  const dropdown = document.getElementById('mobile-dropdown');
-  const mobileItems = document.querySelectorAll('.mobile-item, .btn-mobile-cta');
+  const backdrop = document.getElementById('mobile-nav-backdrop');
+  const expandedPane = document.getElementById('mobile-expanded-pane');
+  const mobileItems = document.querySelectorAll('.mobile-expanded-pane .mobile-item, .mobile-expanded-pane .btn-mobile-cta');
 
-  if (!toggleBtn || !dropdown) return;
+  if (!toggleBtn || !wrapper) return;
 
-  const toggle = () => {
-    const isOpen = dropdown.classList.contains('open');
-    dropdown.classList.toggle('open');
-    toggleBtn.setAttribute('aria-expanded', !isOpen);
+  const expand = () => {
+    wrapper.classList.add('is-expanded');
+    if (backdrop) {
+      backdrop.classList.add('is-open');
+      backdrop.setAttribute('aria-hidden', 'false');
+    }
+    if (expandedPane) expandedPane.setAttribute('aria-hidden', 'false');
+    toggleBtn.setAttribute('aria-expanded', 'true');
+  };
+
+  const collapse = () => {
+    wrapper.classList.remove('is-expanded');
+    if (backdrop) {
+      backdrop.classList.remove('is-open');
+      backdrop.setAttribute('aria-hidden', 'true');
+    }
+    if (expandedPane) expandedPane.setAttribute('aria-hidden', 'true');
+    toggleBtn.setAttribute('aria-expanded', 'false');
   };
 
   toggleBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    toggle();
+    if (wrapper.classList.contains('is-expanded')) {
+      collapse();
+    } else {
+      expand();
+    }
   });
+
+  if (backdrop) {
+    backdrop.addEventListener('click', collapse);
+  }
 
   mobileItems.forEach(item => {
     item.addEventListener('click', () => {
-      dropdown.classList.remove('open');
-      toggleBtn.setAttribute('aria-expanded', 'false');
+      collapse();
     });
   });
 
   document.addEventListener('click', (e) => {
-    if (!dropdown.contains(e.target) && !toggleBtn.contains(e.target)) {
-      dropdown.classList.remove('open');
-      toggleBtn.setAttribute('aria-expanded', 'false');
+    if (wrapper.classList.contains('is-expanded') && !wrapper.contains(e.target)) {
+      collapse();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && wrapper.classList.contains('is-expanded')) {
+      collapse();
     }
   });
 }
