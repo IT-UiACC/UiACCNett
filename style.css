@@ -1603,6 +1603,12 @@ a {
     flex-shrink: 0;
   }
 
+  .brand-link {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
   .navbar-logo-img {
     height: 28px;
   }
@@ -1612,10 +1618,11 @@ a {
   }
 
   .nav-cta-wrap {
+    flex: 1;
     display: flex;
     align-items: center;
-    margin-left: auto;
-    margin-right: 8px;
+    justify-content: center;
+    margin: 0 10px;
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
@@ -1626,8 +1633,16 @@ a {
   }
 
   .btn-nav {
-    padding: 6px 14px;
-    font-size: 0.8rem;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 12px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
   }
 
   .mobile-nav-btn {
@@ -1723,10 +1738,32 @@ a {
     right: 14px;
   }
 
-  /* Floating Contact Widget on Mobile (Floats above bottom navbar) */
+  /* Floating Contact Widget on Mobile (Circle Icon Only, Underlays below navbar) */
   .morph-contact-widget {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
     bottom: 84px;
     right: 16px;
+    z-index: 1000; /* Underlay below navbar backdrop (1050) and navbar (1100) */
+  }
+
+  .morph-btn-trigger {
+    padding: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    justify-content: center;
+  }
+
+  .morph-btn-trigger .btn-text {
+    display: none; /* Icon only on mobile */
+  }
+
+  .morph-btn-trigger .contact-icon {
+    width: 20px;
+    height: 20px;
+    margin: 0;
   }
 
   .morph-contact-widget.is-expanded {
@@ -1734,7 +1771,8 @@ a {
     height: 500px;
     bottom: 18px;
     right: 16px;
-    z-index: 1200;
+    border-radius: 18px;
+    z-index: 1200; /* Above when expanded */
   }
 
   /* Hero Section on Mobile */

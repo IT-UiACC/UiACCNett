@@ -25,7 +25,7 @@ const I18N = {
     nav_schedule: "Schedule",
     nav_social: "Social",
     nav_faq: "FAQ",
-    btn_join_nav: "Join Club",
+    btn_join_nav: "Join Us",
     btn_join_mobile: "Join UiA Case Club",
     hero_title_1: "Real Strategy.",
     hero_title_2: "Real Impact.",
