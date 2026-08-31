@@ -1,0 +1,19 @@
+{
+  "name": "uia-case-club-website",
+  "version": "1.0.0",
+  "description": "Official website for UiA Case Club at University of Agder, Kristiansand",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "uia",
+    "case-club",
+    "kristiansand",
+    "university-of-agder",
+    "consulting",
+    "students"
+  ],
+  "author": "UiA Case Club",
+  "license": "ISC"
+}

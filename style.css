@@ -1,0 +1,1644 @@
+/* ==========================================================================
+   UiA Case Club — Apple iOS Design System
+   Colors:
+   - Primary Red: #C70E2E
+   - Secondary Darker Red: #930A22
+   - Background White: #FFFFFF
+   - Strictly NO shadows on boxes (only buttons & floating navbar)
+   - Buttons: TOTAL rounded corners (9999px pill)
+   - Cards: Rounded box corners (12px squircle)
+   ========================================================================== */
+
+:root {
+  /* Brand Colors */
+  --primary-red: #C70E2E;
+  --secondary-dark-red: #930A22;
+  --primary-red-hover: #AF0B27;
+  --primary-red-tint: rgba(199, 14, 46, 0.07);
+
+  /* iOS / Apple Neutrals */
+  --bg-white: #FFFFFF;
+  --bg-subtle: #FAFAFB;
+  --bg-card: #FFFFFF;
+  --bg-toggle: #F1F3F5;
+  --text-dark: #000000;
+  --text-primary: #1D1D1F;
+  --text-secondary: #6E6E73;
+  --text-tertiary: #86868B;
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-card: rgba(0, 0, 0, 0.08);
+  --border-focus: rgba(199, 14, 46, 0.4);
+
+  /* Typography */
+  --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Plus Jakarta Sans", "Helvetica Neue", sans-serif;
+
+  /* Corner Radii */
+  --radius-card: 12px;       /* Cards have rounded box corners */
+  --radius-inner: 8px;
+  --radius-btn: 9999px;      /* All buttons have TOTAL rounded corners */
+  --radius-pill: 9999px;
+
+  /* Button & Nav Shadows ONLY (Boxes have NO shadow) */
+  --shadow-nav: 0 10px 30px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02);
+  --shadow-btn: 0 4px 12px rgba(199, 14, 46, 0.22);
+  --shadow-glider: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-modal: 0 20px 48px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.06);
+
+  /* Snappy Transitions */
+  --transition-fast: 0.14s cubic-bezier(0.2, 0.9, 0.3, 1);
+  --transition-snappy: 0.32s cubic-bezier(0.2, 0.9, 0.3, 1);
+  --transition-slide: 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-white);
+  color: var(--text-primary);
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+/* Page Container & Whitespace */
+.page-container {
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.center-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Typography Standards */
+h1, h2, h3, h4, h5 {
+  color: var(--text-dark);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.text-brand {
+  color: var(--primary-red);
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   1. Floating Liquid Glass Navbar
+   ========================================================================== */
+.floating-nav-wrapper {
+  position: fixed;
+  top: 16px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 1000;
+  padding: 0 16px;
+  pointer-events: none;
+}
+
+.nav-glass {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 7px 10px 7px 16px;
+  border-radius: var(--radius-pill);
+  
+  /* Liquid Glass Aesthetics */
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--shadow-nav), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  transition: all var(--transition-snappy);
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-logo-img {
+  height: 34px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform var(--transition-fast);
+}
+
+.brand-link:hover .navbar-logo-img {
+  opacity: 0.92;
+}
+
+.footer-logo-img {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-item {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  transition: all var(--transition-fast);
+}
+
+.nav-item:hover {
+  color: var(--text-dark);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.nav-cta-wrap {
+  display: flex;
+  align-items: center;
+}
+
+/* Mobile Nav Toggle */
+.mobile-nav-btn {
+  display: none;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-nav-btn .bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--text-dark);
+  border-radius: 2px;
+  transition: transform var(--transition-fast);
+}
+
+.mobile-dropdown {
+  display: none;
+  position: absolute;
+  top: 56px;
+  width: calc(100% - 32px);
+  max-width: 380px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-card);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  padding: 14px;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: auto;
+}
+
+.mobile-dropdown.open {
+  display: flex;
+}
+
+.mobile-item {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  padding: 10px 14px;
+  border-radius: var(--radius-pill);
+}
+
+.mobile-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.btn-mobile-cta {
+  width: 100%;
+  margin-top: 6px;
+}
+
+/* ==========================================================================
+   2. Top-Right Floating Language Toggle (Glider Pill Switcher)
+   ========================================================================== */
+.floating-lang-wrapper {
+  position: fixed;
+  top: 16px;
+  right: 24px;
+  z-index: 1001;
+}
+
+.lang-toggle-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-toggle);
+  border: none;
+  box-shadow: none;
+}
+
+.lang-glider {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  background: #FFFFFF;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-glider);
+  transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.lang-toggle-bar.is-no .lang-glider {
+  transform: translateX(100%);
+}
+
+.lang-btn {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  border: none;
+  font-family: var(--font-family);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  transition: color var(--transition-fast);
+}
+
+.lang-btn.active {
+  color: var(--primary-red);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   3. iOS Button System (Total Rounded Corners 9999px)
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 10px 22px;
+  border-radius: var(--radius-pill); /* Total Rounded Corners */
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-nav {
+  padding: 7px 18px;
+  font-size: 0.825rem;
+  border-radius: var(--radius-pill);
+}
+
+.btn-hero {
+  padding: 13px 28px;
+  font-size: 1rem;
+  border-radius: var(--radius-pill);
+}
+
+.btn-callout {
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  border-radius: var(--radius-pill);
+}
+
+.btn-block {
+  display: flex;
+  width: 100%;
+}
+
+.btn-primary {
+  background: var(--primary-red);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-btn);
+}
+
+.btn-primary:hover {
+  background: var(--primary-red-hover);
+  box-shadow: 0 6px 18px rgba(199, 14, 46, 0.35);
+  color: #FFFFFF;
+}
+
+.btn-secondary {
+  background: #F1F5F9;
+  color: var(--text-dark);
+  box-shadow: none;
+}
+
+.btn-secondary:hover {
+  background: #E2E8F0;
+}
+
+.btn-secondary-dark {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: none;
+}
+
+.btn-secondary-dark:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================================================
+   4. Hero Section & Infinite Seamless 3-Row Picture Cloud
+   ========================================================================== */
+.hero-section {
+  position: relative;
+  padding: 170px 0 110px;
+  background: #FFFFFF;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* 3-Row Picture Cloud Marquee (Infinite Seamless Left-to-Right Loop) */
+.hero-picture-cloud {
+  position: absolute;
+  top: 40px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  opacity: 0.28;
+  pointer-events: none;
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.9) 15%, rgba(0, 0, 0, 0.9) 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.9) 15%, rgba(0, 0, 0, 0.9) 85%, transparent 100%);
+  z-index: 1;
+}
+
+.marquee-row {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  will-change: transform;
+}
+
+/* Infinite Seamless Left-to-Right Marquee Animations */
+.row-1 .marquee-track {
+  animation: marqueeLTR 44s linear infinite;
+}
+
+.row-2 .marquee-track {
+  animation: marqueeLTR 36s linear infinite;
+  animation-delay: -10s;
+}
+
+.row-3 .marquee-track {
+  animation: marqueeLTR 48s linear infinite;
+  animation-delay: -20s;
+}
+
+@keyframes marqueeLTR {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+/* Card Width Variations for Stair Stacking */
+.cloud-img-card {
+  height: 110px;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+  box-shadow: none; /* NO shadow */
+}
+
+.cloud-img-card.w-sm { width: 190px; }
+.cloud-img-card.w-md { width: 250px; }
+.cloud-img-card.w-lg { width: 310px; }
+
+.cloud-img-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-foreground {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-heading {
+  font-size: clamp(2.8rem, 5.8vw, 4.4rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  margin-bottom: 22px;
+}
+
+.hero-gradient-text {
+  color: var(--primary-red);
+}
+
+.hero-subtext {
+  max-width: 620px;
+  font-size: 1.18rem;
+  color: var(--text-secondary);
+  margin-bottom: 36px;
+  line-height: 1.55;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hero-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 0.825rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  flex-wrap: wrap;
+}
+
+.meta-dot {
+  color: rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================================================
+   5. Unified White Section Standards
+   ========================================================================== */
+.page-main-flow {
+  background: var(--bg-white);
+}
+
+.section-container {
+  padding: 95px 0 105px;
+  background: var(--bg-white);
+  border-bottom: 1px solid var(--border-subtle);
+  position: relative;
+}
+
+.section-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary-red);
+  margin-bottom: 10px;
+}
+
+.section-heading {
+  font-size: clamp(2.1rem, 3.8vw, 2.75rem);
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.section-subheading {
+  max-width: 580px;
+  font-size: 1.05rem;
+  margin-bottom: 48px;
+}
+
+/* ==========================================================================
+   6. Card Layouts (Boxes with Rounded Corners 12px, NO SHADOWS)
+   ========================================================================== */
+.card-grid-three {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+.card-grid-two {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.ios-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card); /* Box with rounded corner */
+  padding: 30px 26px;
+  text-align: left;
+  box-shadow: none; /* NO SHADOW */
+  transition: border-color var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+}
+
+.ios-card:hover {
+  border-color: rgba(199, 14, 46, 0.35);
+  box-shadow: none; /* NO SHADOW */
+}
+
+.card-icon-svg {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-inner);
+  background: var(--primary-red-tint);
+  color: var(--primary-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.check-svg {
+  color: var(--primary-red);
+  flex-shrink: 0;
+}
+
+.card-pill {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--secondary-dark-red);
+  background: var(--primary-red-tint);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 14px;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 0.925rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.ios-check-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.ios-check-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.ios-check-list span {
+  color: var(--primary-red);
+  font-weight: 800;
+}
+
+.about-action-wrap {
+  margin-top: 38px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-about-modal {
+  padding: 14px 38px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  background: var(--primary-red);
+  color: #FFFFFF;
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-btn);
+  gap: 10px;
+  min-width: 260px;
+}
+
+.btn-about-modal:hover {
+  background: var(--primary-red-hover);
+  box-shadow: 0 6px 22px rgba(199, 14, 46, 0.38);
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   7. Slim Rounded Pathways Toggle with Moving Glider & Edge-to-Edge Slide
+   ========================================================================== */
+.audience-toggle-wrapper {
+  margin-bottom: 40px;
+}
+
+.toggle-pill-track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg-toggle);
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  border: none;
+  box-shadow: none;
+}
+
+.toggle-glider {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  background: #FFFFFF;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-glider);
+  transition: transform 0.65s cubic-bezier(0.2, 0.9, 0.3, 1),
+              width 0.65s cubic-bezier(0.2, 0.9, 0.3, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.toggle-pill-btn {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 20px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: transparent;
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.toggle-pill-btn:hover {
+  color: var(--text-dark);
+}
+
+.toggle-pill-btn.active {
+  color: var(--primary-red);
+  font-weight: 700;
+}
+
+/* Edge-to-Edge Slide Stage (Hardware-Accelerated CSS Grid Stack, Half-Speed Smooth Transition) */
+.audience-content-stage {
+  width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+  overflow: hidden;
+  min-height: 380px;
+}
+
+.audience-view {
+  grid-area: 1 / 1;
+  width: 100%;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.9s step-end;
+  will-change: transform, opacity;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* Active in Center */
+.audience-view.is-active {
+  transform: translateX(0) !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0s;
+  z-index: 2;
+}
+
+/* Student off to LEFT edge (comes in from left, exits to left) */
+.audience-view.is-off-left {
+  transform: translateX(-100vw);
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  z-index: 1;
+}
+
+/* Company off to RIGHT edge (comes in from right, exits to right) */
+.audience-view.is-off-right {
+  transform: translateX(100vw);
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  z-index: 1;
+}
+
+/* Callout Boxes (Rounded Box 12px, NO SHADOW) */
+.callout-box {
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+  padding: 32px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  text-align: left;
+  box-shadow: none;
+}
+
+.callout-title {
+  font-size: 1.25rem;
+  margin-bottom: 4px;
+}
+
+.callout-text {
+  font-size: 0.925rem;
+  color: var(--text-secondary);
+}
+
+.callout-box-dark {
+  width: 100%;
+  background: #0B0F19;
+  border-radius: var(--radius-card);
+  padding: 36px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  text-align: left;
+  margin-top: 32px;
+  box-shadow: none;
+}
+
+.callout-box-dark .callout-title {
+  color: #FFFFFF;
+  font-size: 1.3rem;
+  margin-bottom: 4px;
+}
+
+.callout-box-dark .callout-text {
+  color: #94A3B8;
+  font-size: 0.925rem;
+}
+
+.callout-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   8. Clean Schedule Rows (Rounded Box 8px, NO SHADOW)
+   ========================================================================== */
+.schedule-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.schedule-row {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-inner);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  text-align: left;
+  box-shadow: none;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.schedule-row:hover {
+  background: #FAFAFA;
+  border-color: rgba(199, 14, 46, 0.25);
+  box-shadow: none;
+}
+
+.schedule-row.highlight {
+  border-color: rgba(199, 14, 46, 0.3);
+  background: rgba(199, 14, 46, 0.02);
+}
+
+.schedule-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  background: #F1F5F9;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+
+.schedule-badge.red {
+  color: #FFFFFF;
+  background: var(--primary-red);
+}
+
+.schedule-info {
+  flex: 1;
+}
+
+.schedule-info h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.schedule-info p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.schedule-loc {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   9. Social Media Section (Instagram & LinkedIn)
+   ========================================================================== */
+.social-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.social-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.social-brand-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-inner);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.social-brand-icon.ig {
+  background: rgba(225, 48, 108, 0.1);
+  color: #E1306C;
+}
+
+.social-brand-icon.in {
+  background: rgba(10, 102, 194, 0.1);
+  color: #0A66C2;
+}
+
+.social-handle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+
+.social-btn {
+  align-self: flex-start;
+  margin-top: 10px;
+}
+
+/* ==========================================================================
+   10. FAQ Accordion (NO SHADOW)
+   ========================================================================== */
+.faq-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-inner);
+  overflow: hidden;
+  text-align: left;
+  box-shadow: none;
+  transition: border-color var(--transition-fast);
+}
+
+.faq-card:hover {
+  box-shadow: none;
+}
+
+.faq-card.active {
+  border-color: rgba(199, 14, 46, 0.4);
+}
+
+.faq-trigger {
+  width: 100%;
+  padding: 20px 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-family: var(--font-family);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  text-align: left;
+}
+
+.faq-symbol {
+  font-size: 1.3rem;
+  color: var(--primary-red);
+  transition: transform var(--transition-fast);
+}
+
+.faq-card.active .faq-symbol {
+  transform: rotate(45deg);
+}
+
+.faq-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.28s ease-out;
+}
+
+.faq-body p {
+  padding: 0 24px 20px;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   11. Morphing Contact Us Widget (Total Rounded Button morphing into Card)
+   ========================================================================== */
+.morph-contact-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1100;
+  width: 142px;
+  height: 44px;
+  border-radius: var(--radius-pill); /* Total Rounded in Button form */
+  background: var(--primary-red);
+  box-shadow: 0 8px 24px rgba(199, 14, 46, 0.32);
+  transition: width 0.4s cubic-bezier(0.2, 0.9, 0.3, 1),
+              height 0.4s cubic-bezier(0.2, 0.9, 0.3, 1),
+              background 0.4s cubic-bezier(0.2, 0.9, 0.3, 1),
+              border-radius 0.4s cubic-bezier(0.2, 0.9, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Trigger Button Mode */
+.morph-btn-trigger {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  color: #FFFFFF;
+  font-family: var(--font-family);
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform var(--transition-fast);
+}
+
+.morph-btn-trigger:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Expanded Form Mode (Rounded Card 14px) */
+.morph-contact-widget.is-expanded {
+  width: 360px;
+  height: 520px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  border-radius: 14px; /* Box with rounded corner */
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-modal);
+}
+
+.morph-form-card {
+  opacity: 0;
+  pointer-events: none;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: opacity 0.25s ease 0.15s;
+}
+
+.morph-contact-widget.is-expanded .morph-btn-trigger {
+  display: none;
+  opacity: 0;
+}
+
+.morph-contact-widget.is-expanded .morph-form-card {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.contact-expand-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.contact-expand-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot-online {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+}
+
+.contact-expand-title h3 {
+  font-size: 1.15rem;
+  color: var(--text-dark);
+}
+
+.contact-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  padding: 2px 6px;
+  line-height: 1;
+  border-radius: var(--radius-pill);
+}
+
+.contact-close-btn:hover {
+  color: var(--text-dark);
+}
+
+.contact-expand-lead {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+
+.contact-quick-email {
+  background: #F8FAFC;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-inner);
+  padding: 10px 12px;
+  margin-bottom: 14px;
+}
+
+.contact-quick-email .label {
+  display: block;
+  font-size: 0.675rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 2px;
+}
+
+.email-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.direct-email-link {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary-red);
+}
+
+.direct-email-link:hover {
+  text-decoration: underline;
+}
+
+.btn-copy-mini {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-family);
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+
+.btn-copy-mini:hover {
+  background: #F1F5F9;
+}
+
+.contact-quick-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  font-family: var(--font-family);
+  font-size: 0.875rem;
+  padding: 9px 12px;
+  border-radius: var(--radius-inner);
+  border: 1px solid var(--border-card);
+  background: #FFFFFF;
+  color: var(--text-dark);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-red);
+  box-shadow: 0 0 0 3px rgba(199, 14, 46, 0.12);
+}
+
+/* ==========================================================================
+   12. Minimal Apple Footer
+   ========================================================================== */
+.site-footer {
+  padding: 60px 0 40px;
+  border-top: 1px solid var(--border-subtle);
+  background: #FFFFFF;
+}
+
+.footer-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.footer-desc {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.footer-links a:hover {
+  color: var(--primary-red);
+}
+
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+}
+
+.footer-copy {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+}
+
+.footer-ai-note {
+  font-size: 0.725rem;
+  color: var(--text-tertiary);
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   13. Toast Notification
+   ========================================================================== */
+.ios-toast {
+  position: fixed;
+  bottom: 84px;
+  left: 50%;
+  transform: translateX(-50%) translateY(30px);
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #FFFFFF;
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  font-size: 0.875rem;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--transition-fast);
+  z-index: 2000;
+}
+
+.ios-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================================================
+   14. Feelgood Snappy Slowload Scroll Animations
+   ========================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.48s cubic-bezier(0.2, 0.9, 0.3, 1),
+              transform 0.48s cubic-bezier(0.2, 0.9, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.08s; }
+.delay-2 { transition-delay: 0.16s; }
+.delay-3 { transition-delay: 0.24s; }
+
+/* ==========================================================================
+   16. Deep Dive "What is a Case Club?" Modal (Expansive iOS Sheet)
+   ========================================================================== */
+.deep-dive-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.deep-dive-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.deep-dive-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -46%) scale(0.94);
+  width: min(1200px, 80vw);
+  height: 80vh;
+  max-height: 80vh;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(32px) saturate(190%);
+  -webkit-backdrop-filter: blur(32px) saturate(190%);
+  border: 1px solid var(--border-card);
+  border-radius: 18px;
+  box-shadow: var(--shadow-modal);
+  z-index: 1201;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1),
+              opacity 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.deep-dive-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.deep-dive-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 34px 12px;
+  flex-shrink: 0;
+}
+
+.deep-dive-tag-row {
+  display: flex;
+  align-items: center;
+}
+
+.deep-dive-close-btn {
+  background: #F1F3F5;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.deep-dive-close-btn:hover {
+  background: #E2E8F0;
+  color: var(--text-dark);
+}
+
+.deep-dive-body {
+  padding: 4px 34px 28px;
+  overflow-y: auto;
+  flex: 1;
+  text-align: left;
+}
+
+.deep-dive-title {
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+  color: var(--text-dark);
+}
+
+.deep-dive-lead {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.deep-dive-content-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.deep-dive-block {
+  background: #FAFAFB;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+  padding: 22px 24px;
+}
+
+.deep-dive-subtitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-dark);
+}
+
+.deep-dive-text {
+  font-size: 0.925rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.deep-dive-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.benefit-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  box-shadow: none;
+}
+
+.benefit-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text-dark);
+}
+
+.benefit-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.uia-highlight-block {
+  background: rgba(199, 14, 46, 0.03);
+  border-color: rgba(199, 14, 46, 0.25);
+}
+
+.uia-highlight-block .deep-dive-subtitle {
+  color: var(--primary-red);
+}
+
+.deep-dive-footer {
+  padding: 16px 28px 20px;
+  border-top: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   15. Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none;
+  }
+
+  .mobile-nav-btn {
+    display: flex;
+  }
+
+  .floating-lang-wrapper {
+    top: 18px;
+    right: 14px;
+  }
+
+  .hero-section {
+    padding: 140px 0 80px;
+  }
+
+  .hero-picture-cloud {
+    opacity: 0.22;
+  }
+
+  .card-grid-three, .card-grid-two {
+    grid-template-columns: 1fr;
+  }
+
+  .callout-box, .callout-box-dark {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .callout-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .callout-actions .btn {
+    width: 100%;
+  }
+
+  .schedule-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .schedule-loc {
+    align-self: flex-end;
+  }
+
+  .morph-contact-widget {
+    bottom: 18px;
+    right: 18px;
+  }
+
+  .morph-contact-widget.is-expanded {
+    width: calc(100vw - 36px);
+    height: 500px;
+    bottom: 18px;
+    right: 18px;
+  }
+
+  .deep-dive-modal {
+    width: calc(100vw - 24px);
+    max-height: 90vh;
+  }
+
+  .deep-dive-header {
+    padding: 16px 20px 8px;
+  }
+
+  .deep-dive-body {
+    padding: 0 20px 20px;
+  }
+
+  .deep-dive-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .deep-dive-footer {
+    padding: 14px 20px 18px;
+    flex-direction: column;
+  }
+
+  .deep-dive-footer .btn {
+    width: 100%;
+  }
+}
