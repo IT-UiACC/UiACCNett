@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Board (Styret) — UiA Case Club</title>
+  <meta name="description" content="Meet the Executive Board and student leadership team of UiA Case Club at the University of Agder.">
+
+  <!-- Apple Touch & Favicons -->
+  <link rel="icon" type="image/png" href="assets/logo-square.png">
+  <link rel="apple-touch-icon" href="assets/logo-square.png">
+
+  <!-- Apple & Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Floating Liquid Glass Navbar (Desktop: Top Island | Mobile: Bottom Morphing Capsule) -->
+  <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" aria-hidden="true"></div>
+  <header class="floating-nav-wrapper" id="main-nav-wrapper">
+    <nav class="nav-glass" id="nav-glass" aria-label="Main Navigation">
+      <div class="nav-bar-top">
+        <a href="index.html" class="brand-link" aria-label="UiA Case Club Home">
+          <img src="assets/logo.png" alt="UiA Case Club" class="navbar-logo-img">
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <div class="nav-menu">
+          <a href="index.html" class="nav-item" data-i18n="nav_home">Home</a>
+          <a href="about.html" class="nav-item" data-i18n="nav_about">About</a>
+          <a href="board.html" class="nav-item active" data-i18n="nav_board">Board</a>
+        </div>
+
+        <!-- Action Button -->
+        <div class="nav-cta-wrap">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdJ9Ol_Li7k5ljvVv1ecCOG3ly1c0FMGzlRXK3NAT-8b0hvaA/viewform?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-nav" data-i18n="btn_join_nav">
+            Join Us
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-nav-btn" id="mobile-nav-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="bar bar-1"></span>
+          <span class="bar bar-2"></span>
+        </button>
+      </div>
+
+      <!-- Morphing Mobile Expanded Content -->
+      <div class="mobile-expanded-pane" id="mobile-expanded-pane" aria-hidden="true">
+        <div class="mobile-nav-divider"></div>
+        <div class="mobile-nav-links">
+          <a href="index.html" class="mobile-item" data-i18n="nav_home">Home</a>
+          <a href="about.html" class="mobile-item" data-i18n="nav_about">About</a>
+          <a href="board.html" class="mobile-item active" data-i18n="nav_board">Board</a>
+        </div>
+        <div class="mobile-cta-bottom">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdJ9Ol_Li7k5ljvVv1ecCOG3ly1c0FMGzlRXK3NAT-8b0hvaA/viewform?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block btn-mobile-cta" data-i18n="btn_join_mobile">
+            Join UiA Case Club
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Top Right Floating Language Switcher -->
+  <div class="floating-lang-wrapper">
+    <div class="lang-toggle-bar" role="group" aria-label="Language Selector">
+      <div class="lang-glider" id="lang-glider"></div>
+      <button class="lang-btn active" id="lang-btn-en" data-lang="en" aria-pressed="true">EN</button>
+      <button class="lang-btn" id="lang-btn-no" data-lang="no" aria-pressed="false">NO</button>
+    </div>
+  </div>
+
+  <main class="page-main-flow">
+    <!-- Subpage Hero -->
+    <section class="subpage-hero">
+      <div class="page-container center-col">
+        <div class="subpage-badge reveal" data-i18n="board_hero_tag">Leadership & Governance</div>
+        <h1 class="subpage-title reveal" data-i18n="board_hero_title">The Executive Board</h1>
+        <p class="subpage-desc reveal delay-1" data-i18n="board_hero_desc">
+          Meet the student team leading UiA Case Club. The board coordinates weekly workshops, corporate partnerships, internal tournaments, and national competition delegations.
+        </p>
+      </div>
+    </section>
+
+    <!-- Board Member Roles Grid -->
+    <section class="section-container">
+      <div class="page-container center-col">
+        <div class="section-label reveal">Positions</div>
+        <h2 class="section-heading reveal">Executive Team</h2>
+        <p class="section-subheading reveal">
+          Student leaders dedicated to advancing case solving excellence at the University of Agder.
+        </p>
+
+        <div class="board-card-grid">
+          <!-- Role 1: President -->
+          <div class="board-card reveal">
+            <div class="board-card-top">
+              <div class="board-avatar-circle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <span class="card-pill">Executive</span>
+              <h3 class="board-card-title" data-i18n="board_r1_title">President</h3>
+              <p class="board-card-desc" data-i18n="board_r1_desc">
+                Oversees overall club strategy, external institutional relations with UiA faculty, and general operations.
+              </p>
+            </div>
+            <div class="board-status-tag">
+              <span class="board-status-dot"></span>
+              <span data-i18n="board_tba">Position Announced Shortly</span>
+            </div>
+          </div>
+
+          <!-- Role 2: Vice President -->
+          <div class="board-card reveal delay-1">
+            <div class="board-card-top">
+              <div class="board-avatar-circle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
+              <span class="card-pill">Executive</span>
+              <h3 class="board-card-title" data-i18n="board_r2_title">Vice President</h3>
+              <p class="board-card-desc" data-i18n="board_r2_desc">
+                Supports organizational leadership, internal communications, member channels, and cross-functional committee coordination.
+              </p>
+            </div>
+            <div class="board-status-tag">
+              <span class="board-status-dot"></span>
+              <span data-i18n="board_tba">Position Announced Shortly</span>
+            </div>
+          </div>
+
+          <!-- Role 3: Head of Case Competitions -->
+          <div class="board-card reveal delay-2">
+            <div class="board-card-top">
+              <div class="board-avatar-circle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                  <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                  <path d="M4 22h16"></path>
+                  <path d="M10 14.66V17c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-2.34"></path>
+                  <path d="M14 14.66V17c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-2.34"></path>
+                  <path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path>
+                </svg>
+              </div>
+              <span class="card-pill">Academics</span>
+              <h3 class="board-card-title" data-i18n="board_r3_title">Head of Case Competitions</h3>
+              <p class="board-card-desc" data-i18n="board_r3_desc">
+                Designs workshop curriculum, selects case challenges, mentors competitive teams, and coordinates national championship delegations.
+              </p>
+            </div>
+            <div class="board-status-tag">
+              <span class="board-status-dot"></span>
+              <span data-i18n="board_tba">Position Announced Shortly</span>
+            </div>
+          </div>
+
+          <!-- Role 4: Head of Corporate Relations -->
+          <div class="board-card reveal">
+            <div class="board-card-top">
+              <div class="board-avatar-circle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+              </div>
+              <span class="card-pill">Industry</span>
+              <h3 class="board-card-title" data-i18n="board_r4_title">Head of Corporate Relations</h3>
+              <p class="board-card-desc" data-i18n="board_r4_desc">
+                Liaises with consulting firms, banks, and technology enterprises to organize live corporate case evenings and sponsorships.
+              </p>
+            </div>
+            <div class="board-status-tag">
+              <span class="board-status-dot"></span>
+              <span data-i18n="board_tba">Position Announced Shortly</span>
+            </div>
+          </div>
+
+          <!-- Role 5: Head of Marketing & Communications -->
+          <div class="board-card reveal delay-1">
+            <div class="board-card-top">
+              <div class="board-avatar-circle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 7l-7 5 7 5V7z"></path>
+                  <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                </svg>
+              </div>
+              <span class="card-pill">Media</span>
+              <h3 class="board-card-title" data-i18n="board_r5_title">Head of Marketing & Communications</h3>
+              <p class="board-card-desc" data-i18n="board_r5_desc">
+                Directs brand identity, social media presence (Instagram & LinkedIn), campus promotion, and photography/media.
+              </p>
+            </div>
+            <div class="board-status-tag">
+              <span class="board-status-dot"></span>
+              <span data-i18n="board_tba">Position Announced Shortly</span>
+            </div>
+          </div>
+
+          <!-- Role 6: Head of Finance & Operations -->
+          <div class="board-card reveal delay-2">
+            <div class="board-card-top">
+              <div class="board-avatar-circle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="1" x2="12" y2="23"></line>
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+              </div>
+              <span class="card-pill">Operations</span>
+              <h3 class="board-card-title" data-i18n="board_r6_title">Head of Finance & Operations</h3>
+              <p class="board-card-desc" data-i18n="board_r6_desc">
+                Manages organizational budget, event logistics, room bookings at Campus Kristiansand, and social gatherings.
+              </p>
+            </div>
+            <div class="board-status-tag">
+              <span class="board-status-dot"></span>
+              <span data-i18n="board_tba">Position Announced Shortly</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Join the Board Callout -->
+        <div class="callout-box reveal delay-3">
+          <div class="callout-text">
+            <h3 data-i18n="board_note_title">Interested in a Board or Committee Role?</h3>
+            <p data-i18n="board_note_desc">
+              Elections for the Executive Board take place annually. We also continuously recruit motivated students for event, case, and marketing committees. Get in touch with us to get involved!
+            </p>
+          </div>
+          <div class="callout-actions">
+            <a href="mailto:uiacaseclub@gmail.com" class="btn btn-primary btn-callout" data-i18n="board_btn_contact">
+              Contact the Board
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Minimal Apple Footer -->
+  <footer class="site-footer">
+    <div class="page-container center-col">
+      <div class="footer-top">
+        <a href="index.html" class="brand-link" aria-label="UiA Case Club Home">
+          <img src="assets/logo.png" alt="UiA Case Club" class="footer-logo-img">
+        </a>
+        <p class="footer-desc">
+          University of Agder • Universitetsveien 25, 4630 Kristiansand, Norway
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="about.html" data-i18n="nav_about">About</a>
+        <a href="board.html" data-i18n="nav_board">Board</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdJ9Ol_Li7k5ljvVv1ecCOG3ly1c0FMGzlRXK3NAT-8b0hvaA/viewform?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener noreferrer" data-i18n="footer_join">Join Club</a>
+        <a href="mailto:uiacaseclub@gmail.com" data-i18n="footer_contact">Contact</a>
+        <a href="privacy.html" data-i18n="footer_privacy">Privacy & Compliance</a>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year">2026</span> UiA Case Club. <span data-i18n="footer_rights">All rights reserved. Student-driven non-profit organization.</span></p>
+        <p class="footer-ai-note"><span data-i18n="footer_ai_note">This website was generated with the use of Vibe coding (AI generated).</span> • <a href="privacy.html" class="footer-privacy-link" data-i18n="footer_compliance_link">Legal & Privacy Notice</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Morphing Contact Us Widget -->
+  <div class="morph-contact-widget" id="contact-widget">
+    <button class="morph-btn-trigger" id="contact-trigger-btn" aria-label="Open contact form" aria-expanded="false">
+      <svg class="contact-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+      <span class="btn-text" data-i18n="contact_btn_label">Contact Us</span>
+    </button>
+
+    <div class="morph-form-card" id="contact-form-card" aria-hidden="true">
+      <div class="contact-expand-header">
+        <div class="contact-expand-title">
+          <span class="dot-online"></span>
+          <h3 data-i18n="contact_modal_title">Contact UiA Case Club</h3>
+        </div>
+        <button class="contact-close-btn" id="contact-close-btn" aria-label="Close contact modal">&times;</button>
+      </div>
+      <p class="contact-expand-lead" data-i18n="contact_modal_lead">Have questions or want to partner with us? Fill in the details below to send an email directly to our team.</p>
+      
+      <div class="contact-quick-email">
+        <span class="label" data-i18n="contact_email_label">Direct Email:</span>
+        <div class="email-row">
+          <a href="mailto:uiacaseclub@gmail.com" class="direct-email-link">uiacaseclub@gmail.com</a>
+          <button type="button" class="btn-copy-mini" id="modal-copy-email-btn" title="Copy email" data-i18n="btn_copy_short">Copy</button>
+        </div>
+      </div>
+
+      <form class="contact-quick-form" id="contact-quick-form">
+        <div class="form-group">
+          <label for="contact-name" data-i18n="label_name">Your Name</label>
+          <input type="text" id="contact-name" name="name" placeholder="E.g. Nora Hansen" required>
+        </div>
+        <div class="form-group">
+          <label for="contact-topic" data-i18n="label_topic">Topic</label>
+          <select id="contact-topic" name="topic">
+            <option value="Company Case Night / Collaboration" data-i18n="opt_1">Company Case Night / Collaboration</option>
+            <option value="Student Question" data-i18n="opt_2">Student Question</option>
+            <option value="Club Sponsorship" data-i18n="opt_3">Company Sponsorship</option>
+            <option value="General Inquiry" data-i18n="opt_4">General Inquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="contact-msg" data-i18n="label_msg">Message</label>
+          <textarea id="contact-msg" name="message" rows="3" placeholder="How can we help you?" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">
+          <span data-i18n="btn_send_email">Send Email</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="ios-toast" role="alert" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
