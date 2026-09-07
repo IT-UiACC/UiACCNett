@@ -633,6 +633,28 @@ a {
   line-height: 1.55;
 }
 
+/* Card Thumbnail Images */
+.card-thumb-wrap {
+  width: 100%;
+  height: 180px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  background: #F1F3F5;
+}
+
+.card-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ios-card:hover .card-thumb-img {
+  transform: scale(1.05);
+}
+
 .ios-check-list {
   list-style: none;
   display: flex;
@@ -2255,7 +2277,94 @@ a {
   opacity: 0.8;
 }
 
-/* Mobile Adjustments for Subpages */
+/* ==========================================================================
+   17. Corporate Collaborations Section
+   ========================================================================== */
+.collab-sector-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.collab-sector-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+  padding: 24px 20px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color var(--transition-fast);
+}
+
+.collab-sector-card:hover {
+  border-color: rgba(199, 14, 46, 0.35);
+}
+
+.collab-sector-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.collab-sector-tag {
+  font-size: 0.725rem;
+  font-weight: 700;
+  color: var(--secondary-dark-red);
+  background: var(--primary-red-tint);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  align-self: flex-start;
+  margin-bottom: 12px;
+}
+
+.collab-sector-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.collab-sector-desc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.collab-permission-banner {
+  background: #FAFAFB;
+  border: 1px dashed var(--border-card);
+  border-radius: var(--radius-card);
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  text-align: left;
+}
+
+.collab-permission-content {
+  max-width: 620px;
+}
+
+.collab-permission-content h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.collab-permission-content p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Mobile Adjustments for Subpages & Section 05 */
 @media (max-width: 768px) {
   .subpage-hero {
     padding: 100px 16px 45px;
@@ -2275,6 +2384,21 @@ a {
 
   .legal-section-block {
     padding: 24px 18px;
+  }
+
+  .collab-sector-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .collab-permission-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px 16px;
+  }
+
+  .collab-permission-banner .btn {
+    width: 100%;
   }
 }
 
