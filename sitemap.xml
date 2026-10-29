@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- 1. Home / Forside -->
+  <url>
+    <loc>https://uiacaseclub.no/</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://uiacaseclub.no/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://uiacaseclub.no/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://uiacaseclub.no/"/>
+  </url>
+
+  <!-- 2. For Members / For medlemmer -->
+  <url>
+    <loc>https://uiacaseclub.no/members.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://uiacaseclub.no/members.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://uiacaseclub.no/members.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://uiacaseclub.no/members.html"/>
+  </url>
+
+  <!-- 3. About / Om oss -->
+  <url>
+    <loc>https://uiacaseclub.no/about.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://uiacaseclub.no/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://uiacaseclub.no/about.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://uiacaseclub.no/about.html"/>
+  </url>
+
+  <!-- 4. The Board / Styret -->
+  <url>
+    <loc>https://uiacaseclub.no/board.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://uiacaseclub.no/board.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://uiacaseclub.no/board.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://uiacaseclub.no/board.html"/>
+  </url>
+
+  <!-- 5. Privacy & Compliance / Personvern & Vilkår -->
+  <url>
+    <loc>https://uiacaseclub.no/privacy.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://uiacaseclub.no/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://uiacaseclub.no/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://uiacaseclub.no/privacy.html"/>
+  </url>
+
+</urlset>

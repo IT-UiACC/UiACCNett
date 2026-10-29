@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UiA Case Club | Side ikke funnet (404)</title>
+  <meta name="description" content="The requested page could not be found. Return to UiA Case Club home.">
+  <meta name="robots" content="noindex, follow">
+
+  <link rel="icon" type="image/png" href="assets/logo-square.png">
+  <link rel="apple-touch-icon" href="assets/logo-square.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#C70E2E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Floating Liquid Glass Navbar -->
+  <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" aria-hidden="true"></div>
+  <header class="floating-nav-wrapper" id="main-nav-wrapper">
+    <nav class="nav-glass" id="nav-glass" aria-label="Main Navigation">
+      <div class="nav-bar-top">
+        <a href="index.html" class="brand-link" aria-label="UiA Case Club Home">
+          <img src="assets/logo.png" alt="UiA Case Club" class="navbar-logo-img">
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <div class="nav-menu">
+          <a href="index.html" class="nav-item" data-i18n="nav_home">Home</a>
+          <a href="about.html" class="nav-item" data-i18n="nav_about">About</a>
+          <a href="board.html" class="nav-item" data-i18n="nav_board">Board</a>
+          <a href="members.html" class="nav-item" data-i18n="nav_members">For Members</a>
+        </div>
+
+        <!-- Action Button -->
+        <div class="nav-cta-wrap">
+          <button type="button" class="btn btn-primary btn-nav btn-join-trigger" data-i18n="btn_join_nav">
+            Join Us
+          </button>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-nav-btn" id="mobile-nav-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="bar bar-1"></span>
+          <span class="bar bar-2"></span>
+        </button>
+      </div>
+
+      <!-- Morphing Mobile Expanded Content -->
+      <div class="mobile-expanded-pane" id="mobile-expanded-pane" aria-hidden="true">
+        <div class="mobile-nav-divider"></div>
+        <div class="mobile-nav-links">
+          <a href="index.html" class="mobile-item" data-i18n="nav_home">Home</a>
+          <a href="about.html" class="mobile-item" data-i18n="nav_about">About</a>
+          <a href="board.html" class="mobile-item" data-i18n="nav_board">Board</a>
+          <a href="members.html" class="mobile-item" data-i18n="nav_members">For Members</a>
+        </div>
+        <div class="mobile-cta-bottom">
+          <button type="button" class="btn btn-primary btn-block btn-mobile-cta btn-join-trigger" data-i18n="btn_join_mobile">
+            Join UiA Case Club
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Top Right Floating Language & Settings Controls -->
+  <div class="floating-lang-wrapper" id="settings-widget">
+    <div class="header-toolbar-capsule" id="header-toolbar-capsule">
+      <div class="lang-toggle-bar is-no" id="lang-toggle-bar" role="group" aria-label="Language Selector">
+        <div class="lang-glider" id="lang-glider"></div>
+        <button class="lang-btn" id="lang-btn-en" data-lang="en" aria-pressed="false">EN</button>
+        <button class="lang-btn active" id="lang-btn-no" data-lang="no" aria-pressed="true">NO</button>
+      </div>
+
+      <div class="settings-expandable-tools" id="settings-toolbar-pane" aria-hidden="true">
+        <div class="settings-divider"></div>
+        <div class="segmented-pill-track theme-pill-track" id="theme-pill-track" role="group" aria-label="Theme mode">
+          <div class="segmented-glider theme-glider" id="theme-glider"></div>
+          <button class="segmented-btn active" id="btn-theme-light" data-theme="light" aria-label="Bright Mode" title="Bright Mode" aria-pressed="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="1" y2="3"></line>
+              <line x1="12" y1="21" x2="1" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+          <button class="segmented-btn" id="btn-theme-dark" data-theme="dark" aria-label="Dark Mode" title="Dark Mode" aria-pressed="false">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="settings-divider"></div>
+
+        <div class="segmented-pill-track size-pill-track" id="size-pill-track" role="group" aria-label="Text Size">
+          <div class="segmented-glider size-glider" id="size-glider"></div>
+          <button class="segmented-btn" id="btn-size-small" data-size="small" aria-label="Small text size">
+            <span class="text-icon-sm">A</span>
+          </button>
+          <button class="segmented-btn active" id="btn-size-normal" data-size="normal" aria-label="Normal text size">
+            <span class="text-icon-md">A</span>
+          </button>
+          <button class="segmented-btn" id="btn-size-large" data-size="large" aria-label="Large text size">
+            <span class="text-icon-lg">A</span>
+          </button>
+        </div>
+      </div>
+
+      <button class="settings-wheel-btn" id="settings-wheel-btn" aria-label="Display and appearance settings" aria-expanded="false" title="Display Settings">
+        <svg class="gear-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <main class="page-main-flow">
+    <section class="subpage-hero" style="min-height: 55vh; display: flex; align-items: center;">
+      <div class="page-container center-col">
+        <div class="subpage-badge reveal" style="color: var(--primary-red); background: rgba(199, 14, 46, 0.1);">404 Error</div>
+        <h1 class="subpage-title reveal">Page Not Found</h1>
+        <p class="subpage-desc reveal delay-1" style="max-width: 540px;">
+          The link you followed may be broken, or the page may have been moved. Let's get you back on track with UiA Case Club.
+        </p>
+
+        <div style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 24px;">
+          <a href="index.html" class="btn btn-primary" data-i18n="nav_home">Return Home</a>
+          <a href="members.html" class="btn btn-secondary" data-i18n="nav_members">For Members</a>
+          <a href="board.html" class="btn btn-secondary" data-i18n="nav_board">The Board</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Minimal Apple Footer -->
+  <footer class="site-footer">
+    <div class="page-container center-col">
+      <div class="footer-top">
+        <a href="index.html" class="brand-link" aria-label="UiA Case Club Home">
+          <img src="assets/logo.png" alt="UiA Case Club" class="footer-logo-img">
+        </a>
+        <p class="footer-desc">
+          University of Agder • Universitetsveien 25, 4630 Kristiansand, Norway
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="about.html" data-i18n="nav_about">About</a>
+        <a href="board.html" data-i18n="nav_board">Board</a>
+        <a href="members.html" data-i18n="nav_members">For Members</a>
+        <a href="mailto:uiacaseclub@gmail.com" data-i18n="footer_contact">Contact</a>
+        <a href="privacy.html" data-i18n="footer_privacy">Privacy & Compliance</a>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="current-year">2026</span> UiA Case Club. <span data-i18n="footer_rights">All rights reserved. Student-driven non-profit organization.</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

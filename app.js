@@ -1,10 +1,16 @@
-/**
- * UiA Case Club — Apple Aesthetic Interactive Scripts & i18n
- * University of Agder, Kristiansand
- */
+// Immediate theme, text size & language initialization to prevent flash
+(function() {
+  const savedTheme = localStorage.getItem('uiacc_theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  const savedSize = localStorage.getItem('uiacc_text_size') || 'normal';
+  document.documentElement.setAttribute('data-text-size', savedSize);
+  const savedLang = localStorage.getItem('uiacc_lang_v2') || 'no';
+  document.documentElement.setAttribute('lang', savedLang);
+})();
 
 document.addEventListener('DOMContentLoaded', () => {
   initLanguageSwitcher();
+  initSettingsWidget();
   initActiveNavLink();
   initAudienceEdgeSlideToggle();
   initMobileNavigation();
@@ -14,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initEmailCopyUtility();
   initSlowLoadScroll();
   initDynamicYear();
+  initJoinModal();
+  initPreviousBoardsAccordion();
 });
 
 /* ==========================================================================
@@ -25,6 +33,7 @@ const I18N = {
     nav_home: "Home",
     nav_about: "About",
     nav_board: "Board",
+    nav_members: "For Members",
     btn_join_nav: "Join Us",
     btn_join_mobile: "Join UiA Case Club",
     
@@ -48,6 +57,8 @@ const I18N = {
     c2_text: "Solve live strategic dilemmas alongside corporate executives.",
     c3_title: "National Competitions",
     c3_text: "Represent UiA in championships across Norway and the Nordics.",
+    sec1_banner_tag: "Championship Stage • Real Impact",
+    sec1_banner_caption: "Representing UiA on the national stage with analytical rigor and boardroom presence.",
     btn_more_about_case_club: "More about Case Club",
 
     // Section 01 Deep Dive Modal
@@ -76,18 +87,27 @@ const I18N = {
     tab_companies: "For Companies & Partners",
     st_pill_1: "Community & Access",
     st_title_1: "Interdisciplinary Community",
-    st_text_1: "Open to all active UiA students across Business, IT, Engineering, Law, and Social Sciences. 100% free.",
+    st_text_1: "Open to all active UiA students across Business, IT, Engineering, Law, and Social Sciences.",
+    st_banner_tag: "Campus Kristiansand • Active Workshops",
+    st_banner_caption: "Hands-on collaborative problem solving, live case crackings, and mentorship sessions.",
     st_pill_2: "Skills & Career",
     st_title_2: "Accelerate Your Career",
     st_text_2: "Master executive slide design, quantitative problem deconstruction, and high-pressure boardroom pitching.",
     btn_join_form: "Join UiA Case Club",
+    st_callout_title: "Ready to join the club?",
+    st_callout_text: "All UiA students are accepted. Fill in the quick registration form to get started.",
     co_pill_1: "Case Nights",
     co_title_1: "Host a Case Night",
     co_text_1: "Present a live strategic bottleneck from your organization and receive fresh, data-driven student solutions.",
+    co_banner_tag: "Corporate Case Nights • Executive Solving",
+    co_banner_caption: "Direct engagement with top student talent tackling live commercial challenges.",
     co_pill_2: "Talent",
     co_title_2: "Spot Top Talent Early",
     co_text_2: "Observe analytical rigor, teamwork, and communication in real time before formal interview cycles.",
     btn_email_co: "Partner With Us",
+    btn_copy_email: "Copy Email",
+    co_callout_title: "Let's discuss a partnership",
+    co_callout_text: "Reach out directly to schedule a brief introductory chat or plan a case evening.",
 
     // Section 03 Schedule (Streamlined)
     label_03: "03 / Schedule",
@@ -145,6 +165,8 @@ const I18N = {
     faq_a2: "All faculties! Students from Business, Economics, IT, Engineering, Law, and Social Sciences are warmly welcomed.",
     faq_q3: "Who can join UiA Case Club?",
     faq_a3: "All registered students at the University of Agder are welcome. Simply fill out the join form to be added to our member channels and updates.",
+    faq_q_cost: "Does it cost anything to participate?",
+    faq_a_cost: "No, it is completely free! All you need is to sign up for an activity, come, and enjoy!",
     faq_q4: "How do companies get in touch for Case Nights?",
     faq_a4: "Email us at uiacaseclub@gmail.com or use the Contact button in the lower right corner. We will coordinate dates, case topic, and campus logistics.",
 
@@ -177,13 +199,14 @@ const I18N = {
     about_hero_desc: "UiA Case Club is the premier student-driven case organization at the University of Agder. We bridge academic curricula with real-world executive strategy through workshops, company case nights, and national championships.",
     about_stat1_num: "100%",
     about_stat1_lbl: "Open to all UiA students",
-    about_stat2_num: "0,-",
-    about_stat2_lbl: "Free membership",
+    about_stat2_num: "All Faculties",
+    about_stat2_lbl: "Interdisciplinary community",
     about_stat3_num: "Nordic",
     about_stat3_lbl: "Championship qualifiers",
     about_sec1_title: "Our Story & Purpose",
     about_sec1_text1: "Founded by ambitious students at Campus Kristiansand, UiA Case Club was established to bring the international case solving tradition to the University of Agder. While university courses teach theory, real-world business requires synthesizing messy data under pressure, building convincing arguments, and presenting with boardroom presence.",
     about_sec1_text2: "We operate as an open, non-profit academic student society. We prepare our members for prestigious case competitions across Norway and the Nordics, connect top talent with industry leaders, and build a lasting culture of excellence in Kristiansand.",
+    about_mission_title: "Our Mission & Vision",
     about_sec2_title: "The 4-Stage Solving Framework",
     about_step1_title: "1. Diagnose Bottlenecks",
     about_step1_desc: "Deconstruct ambiguous corporate dilemmas using MECE and Issue Trees to identify root causes instead of superficial symptoms.",
@@ -202,22 +225,61 @@ const I18N = {
     board_hero_tag: "Leadership & Governance",
     board_hero_title: "The Executive Board",
     board_hero_desc: "Meet the student team leading UiA Case Club. The board coordinates weekly workshops, corporate partnerships, internal tournaments, and national competition delegations.",
-    board_r1_title: "President",
-    board_r1_desc: "Oversees overall club strategy, external institutional relations with UiA faculty, and general operations.",
-    board_r2_title: "Vice President",
-    board_r2_desc: "Supports organizational leadership, internal communications, member channels, and cross-functional committee coordination.",
-    board_r3_title: "Head of Case Competitions",
-    board_r3_desc: "Designs workshop curriculum, selects case challenges, mentors competitive teams, and coordinates national championship delegations.",
-    board_r4_title: "Head of Corporate Relations",
-    board_r4_desc: "Liaises with consulting firms, banks, and technology enterprises to organize live corporate case evenings and sponsorships.",
-    board_r5_title: "Head of Marketing & Communications",
-    board_r5_desc: "Directs brand identity, social media presence (Instagram & LinkedIn), campus promotion, and photography/media.",
-    board_r6_title: "Head of Finance & Operations",
-    board_r6_desc: "Manages organizational budget, event logistics, room bookings at Campus Kristiansand, and social gatherings.",
-    board_tba: "Position Announced Shortly",
+    board_showcase_tag: "Executive Board • UiA Case Club",
+    board_showcase_caption: "The UiA Case Club board gathered at Campus Kristiansand.",
+    board_roles_label: "2026 / 2027 • Executive Board",
+    board_roles_heading: "Current Executive Team (2026/2027)",
+    board_roles_subheading: "Student leaders currently advancing case solving excellence at the University of Agder.",
+    board_role_1: "President",
+    board_role_2: "Vice President",
+    board_role_3: "Head of Finance",
+    board_role_4: "Head of Events",
+    board_role_5: "Head of Marketing",
+    board_role_6: "Head of Marketing",
+    board_role_7: "Board Member",
+    board_role_styremedlem: "Board Member",
+    board_role_expansion: "Board Member",
+    board_expansion_name: "Coming Soon",
+    prev_boards_label: "Leadership Archive",
+    prev_boards_heading: "Previous Boards",
+    prev_boards_subheading: "Honoring the student leaders who founded, built, and expanded UiA Case Club through the years.",
+    board_2526_title: "Executive Board 2025 / 2026",
+    board_2526_subtitle: "10 Members • 2nd Generation Board",
+    board_2425_title: "Founding Board 2024 / 2025",
+    board_2425_subtitle: "Founders & 1st Generation Board",
+    btn_expand_board: "Show Board",
+    btn_collapse_board: "Hide Board",
+    role_leder: "President",
+    role_nestleder: "Vice President",
+    role_arrangement: "Head of Events",
+    role_okonomi: "Head of Finance",
+    role_marked: "Head of Marketing",
+    role_sosial: "Head of Social",
+    role_styremedlem: "Board Member",
     board_note_title: "Interested in a Board or Committee Role?",
     board_note_desc: "Elections for the Executive Board take place annually. We also continuously recruit motivated students for event, case, and marketing committees. Get in touch with us to get involved!",
     board_btn_contact: "Contact the Board",
+
+    // For Members Page
+    members_hero_tag: "Member Portal & Resources",
+    members_hero_title: "UiA Case Club Members",
+    members_hero_desc: "Access workshop schedules, case problem libraries, toolkits, and community updates. Everything you need to excel as a student case solver at the University of Agder.",
+    cert_badge: "Official Verification",
+    cert_title: "Do you want a certificate of membership?",
+    cert_desc: "Active members can request an official Certificate of Membership (diploma) from UiA Case Club to document their case-solving training and extracurricular commitment on their CV and LinkedIn. Send an email with your full name and study program, and our executive board will issue your certificate.",
+    cert_btn_email: "Request Certificate via Email",
+    cert_btn_copy: "Copy uiacaseclub@gmail.com",
+    cert_toast_copied: "Email address copied to clipboard!",
+    members_sec_label: "Member Hub",
+    members_sec_heading: "Resources & Activities",
+    members_sec_subheading: "Everything available to active members of UiA Case Club.",
+    members_c1_title: "Weekly Workshops & Case Sprints",
+    members_c1_desc: "Hands-on problem solving every week. Learn structured hypothesis trees, quantitative sanity checks, and high-impact presentation delivery.",
+    members_c2_title: "Frameworks & Slide Toolkits",
+    members_c2_desc: "Curated consulting frameworks, executive slide decks, financial models, and case archives from previous national championships.",
+    members_c3_title: "Competitions & Delegations",
+    members_c3_desc: "Represent the University of Agder at premier Nordic and national case competitions with travel and registration facilitated by the club.",
+    members_coming_text: "More member features are coming soon, including an internal resource drive, guest speaker recordings, and alumni network events. Stay tuned!",
 
     // Privacy & Compliance Page
     priv_hero_tag: "Legal Notice & Transparency",
@@ -236,7 +298,31 @@ const I18N = {
     priv_s4_title: "4. AI Transparency & Vibe Coding Disclosure (EU AI Act Art. 50)",
     priv_s4_text: "Pursuant to Article 50 of the European Union Artificial Intelligence Act (Regulation (EU) 2024/1689), we openly disclose that this website's technical source code, structural layout, and initial digital assets were crafted using artificial intelligence assistance ('Vibe coding'). All content, organizational statements, and student resources are curated, edited, and published under human editorial responsibility by the board of UiA Case Club.",
     priv_s5_title: "5. Intellectual Property & External Links (Åndsverkloven)",
-    priv_s5_text: "All original content, texts, and graphics on this website are protected under the Norwegian Copyright Act (Åndsverkloven). The University of Agder name and logo remain the property of Universitetet i Agder. This site contains links to external services (Google Forms, Instagram, LinkedIn); UiA Case Club assumes no responsibility for third-party privacy practices or external content."
+    priv_s5_text: "All original content, texts, and graphics on this website are protected under the Norwegian Copyright Act (Åndsverkloven). The University of Agder name and logo remain the property of Universitetet i Agder. This site contains links to external services (Google Forms, Instagram, LinkedIn); UiA Case Club assumes no responsibility for third-party privacy practices or external content.",
+
+    // Join Us Modal
+    join_modal_badge: "UiA Case Club • Registration",
+    join_modal_title: "Join UiA Case Club",
+    join_modal_lead: "Open to all students across every study discipline. Complete the details below to join.",
+    join_label_name: "Full Name",
+    join_ph_name: "E.g. Sara Johansen",
+    join_label_email: "E-mail (the one you want to receive information on)",
+    join_ph_email: "E.g. student@uia.no",
+    join_label_study: "Study Program & Year",
+    join_ph_study: "E.g. Business Administration, 2nd year",
+    join_label_studentid: "Student ID Number",
+    join_ph_studentid: "E.g. 123456",
+    join_optional_tag: "(Optional)",
+    join_label_phone: "Phone Number",
+    join_ph_phone: "E.g. +47 912 34 567",
+    join_privacy_hint: "Your information is handled confidentially in accordance with our Privacy Policy.",
+    join_btn_submit: "Submit Registration",
+    join_btn_submitting: "Submitting...",
+    join_success_title: "Welcome to the Team!",
+    join_success_lead: "Your registration has been submitted. We are thrilled to welcome you to UiA Case Club!",
+    join_success_badge: "Campus Kristiansand • Active Workshops",
+    join_btn_done: "Done",
+    toast_delivery_success: "✓ Delivery successful! Welcome to UiA Case Club"
   },
 
   no: {
@@ -244,6 +330,7 @@ const I18N = {
     nav_home: "Hjem",
     nav_about: "Om oss",
     nav_board: "Styre",
+    nav_members: "For medlemmer",
     btn_join_nav: "Bli med",
     btn_join_mobile: "Bli med i UiA Case Club",
 
@@ -267,6 +354,8 @@ const I18N = {
     c2_text: "Løs reelle bedriftsutfordringer sammen med toppledere.",
     c3_title: "Nasjonale Konkurranser",
     c3_text: "Representer UiA i mesterskap i Norge og Norden.",
+    sec1_banner_tag: "Mesterskapsarena • Reell Innsikt",
+    sec1_banner_caption: "UiA-studenter på den nasjonale scenen med analytisk styrke og formidlingsevne.",
     btn_more_about_case_club: "Mer om Case Club",
 
     // Section 01 Deep Dive Modal
@@ -295,18 +384,27 @@ const I18N = {
     tab_companies: "For Bedrifter & Partnere",
     st_pill_1: "Fellesskap & Tilgang",
     st_title_1: "Tverrfaglig Fellesskap",
-    st_text_1: "Åpent for alle aktive studenter på tvers av økonomi, IT, ingeniørfag, juss og samfunnsfag. 100 % gratis.",
+    st_text_1: "Åpent for alle aktive studenter på tvers av økonomi, IT, ingeniørfag, juss og samfunnsfag.",
+    st_banner_tag: "Campus Kristiansand • Faglige Samlinger",
+    st_banner_caption: "Praktisk problemløsning, reelle case-analyser og presentasjonstrening.",
     st_pill_2: "Ferdigheter & Karriere",
     st_title_2: "Akselerer karrieren din",
     st_text_2: "Mestre profesjonelt presentasjonsdesign, kvantitativ problemløsning og trygg formidling under press.",
     btn_join_form: "Bli med i UiA Case Club",
+    st_callout_title: "Klar til å bli med i foreningen?",
+    st_callout_text: "Åpent for alle studenter ved UiA. Fyll ut det raske påmeldingsskjemaet for å komme i gang.",
     co_pill_1: "Casekvelder",
     co_title_1: "Arranger en Bedriftskveld",
     co_text_1: "Presenter en reell strategisk utfordring fra selskapet og motta datadrevne løsninger fra studentene.",
+    co_banner_tag: "Bedriftskvelder • Strategisk Samarbeid",
+    co_banner_caption: "Møt engasjerte studenter som løser reelle kommersielle utfordringer.",
     co_pill_2: "Talenter",
     co_title_2: "Møt Topptalenter Tidlig",
     co_text_2: "Observer kandidatenes analyse, samarbeid og kommunikasjonsevner i praksis før formelle intervjuer.",
     btn_email_co: "Samarbeid med oss",
+    btn_copy_email: "Kopier e-post",
+    co_callout_title: "La oss diskutere et samarbeid",
+    co_callout_text: "Ta direkte kontakt for en uforpliktende prat eller for å planlegge en casekveld.",
 
     // Section 03 Schedule (Streamlined)
     label_03: "03 / Program",
@@ -364,6 +462,8 @@ const I18N = {
     faq_a2: "Alle fakulteter! Studenter fra økonomi, IT, ingeniørfag, juss, samfunnsfag og humaniora er hjertelig velkomne.",
     faq_q3: "Hvem kan bli medlem i UiA Case Club?",
     faq_a3: "Alle registrerte studenter ved Universitetet i Agder kan bli med. Fyll ut skjemaet for å motta informasjon og invitasjoner.",
+    faq_q_cost: "Koster det noe å delta?",
+    faq_a_cost: "Nei, det er helt gratis! Alt du trenger er å melde deg på en aktivitet, komme og nyte opplegget!",
     faq_q4: "Hvordan kan bedrifter arrangere en casekveld?",
     faq_a4: "Send en e-post til uiacaseclub@gmail.com eller bruk Kontakt-knappen nede til høyre. Vi avtaler dato, tema og praktiske detaljer.",
 
@@ -396,13 +496,14 @@ const I18N = {
     about_hero_desc: "UiA Case Club er den ledende studentdrevne caseforeningen ved Universitetet i Agder. Vi bygger bro mellom akademia og reell strategisk ledelse gjennom workshops, bedriftskvelder og nasjonale mesterskap.",
     about_stat1_num: "100%",
     about_stat1_lbl: "Åpent for alle UiA-studenter",
-    about_stat2_num: "0,-",
-    about_stat2_lbl: "Gratis medlemskap",
+    about_stat2_num: "Alle Fakulteter",
+    about_stat2_lbl: "Tverrfaglig fellesskap",
     about_stat3_num: "Nordisk",
     about_stat3_lbl: "Kvalifisering til mesterskap",
     about_sec1_title: "Vår Historie & Formål",
     about_sec1_text1: "UiA Case Club ble startet av engasjerte studenter på Campus Kristiansand for å etablere den internasjonale casetradisjonen ved Universitetet i Agder. Mens forelesninger lærer teori, krever næringslivet evnen til å strukturere komplekse problemer under tidspress, bygge overbevisende argumenter og presentere med trygghet i styrerommet.",
     about_sec1_text2: "Vi drives som en åpen, ideell studentorganisasjon. Vi trener våre medlemmer for prestisjefylte casemesterskap i Norge og Norden, kobler topptalenter med næringslivet, og bygger en varig kultur for problemløsning i Kristiansand.",
+    about_mission_title: "Vår Visjon & Formål",
     about_sec2_title: "Casemetoden i 4 Steg",
     about_step1_title: "1. Diagnose & Analyse",
     about_step1_desc: "Bryt ned komplekse selskapsutfordringer med MECE og problemtrær for å avdekke rotårsaker fremfor overfladiske symptomer.",
@@ -421,22 +522,61 @@ const I18N = {
     board_hero_tag: "Ledelse & Organisasjon",
     board_hero_title: "Hovedstyret",
     board_hero_desc: "Møt studentene som leder UiA Case Club. Styret koordinerer ukentlige workshops, bedriftssamarbeid, interne mesterskap og delegasjoner til nasjonale konkurranser.",
-    board_r1_title: "Leder",
-    board_r1_desc: "Overordnet ansvar for foreningens strategi, eksterne relasjoner med UiA-ledelsen og daglig drift.",
-    board_r2_title: "Nestleder",
-    board_r2_desc: "Støtter foreningens ledelse, internkommunikasjon, medlemskanaler og oppfølging av utvalg.",
-    board_r3_title: "Konkurranseansvarlig",
-    board_r3_desc: "Utformer workshop-fagplanen, velger ut caseoppgaver, veileder lag og koordinerer deltakelse i nasjonale mesterskap.",
-    board_r4_title: "Næringslivsansvarlig",
-    board_r4_desc: "Hovedkontakt mot konsulentselskaper, banker og teknologiselskaper for bedriftskvelder og sponsorater.",
-    board_r5_title: "Markeds- og kommunikasjonsansvarlig",
-    board_r5_desc: "Leder merkevarebygging, sosiale medier (Instagram & LinkedIn), campuspromotering og foto/film.",
-    board_r6_title: "Økonomi- og arrangementsansvarlig",
-    board_r6_desc: "Forvalter foreningens budsjett, arrangementslogistikk, rombooking på Campus Kristiansand og sosiale samlinger.",
-    board_tba: "Vervet annonseres snart",
+    board_showcase_tag: "Hovedstyret • UiA Case Club",
+    board_showcase_caption: "Styret i UiA Case Club samlet på Campus Kristiansand.",
+    board_roles_label: "2026 / 2027 • Hovedstyret",
+    board_roles_heading: "Nåværende Hovedstyre (2026/2027)",
+    board_roles_subheading: "Studentlederne som for tiden leder og utvikler UiA Case Club ved Universitetet i Agder.",
+    board_role_1: "Leder",
+    board_role_2: "Nestleder",
+    board_role_3: "Økonomiansvarlig",
+    board_role_4: "Arrangementsansvarlig",
+    board_role_5: "Markedsføringsansvarlig",
+    board_role_6: "Markedsføringsansvarlig",
+    board_role_7: "Styremedlem",
+    board_role_styremedlem: "Styremedlem",
+    board_role_expansion: "Styremedlem",
+    board_expansion_name: "Kommer snart",
+    prev_boards_label: "Historikk & Alumnus",
+    prev_boards_heading: "Tidligere Styrer",
+    prev_boards_subheading: "En heder til studentlederne som har grunnlagt, bygget og ledet UiA Case Club gjennom årene.",
+    board_2526_title: "Hovedstyret 2025 / 2026",
+    board_2526_subtitle: "10 Medlemmer • 2. Generasjon",
+    board_2425_title: "Stiftelsesstyret 2024 / 2025",
+    board_2425_subtitle: "Stiftere & 1. Generasjon",
+    btn_expand_board: "Vis styre",
+    btn_collapse_board: "Skjul",
+    role_leder: "Leder",
+    role_nestleder: "Nestleder",
+    role_arrangement: "Arrangementsansvarlig",
+    role_okonomi: "Økonomiansvarlig",
+    role_marked: "Markedsføringsansvarlig",
+    role_sosial: "Sosialansvarlig",
+    role_styremedlem: "Styremedlem",
     board_note_title: "Ønsker du et styre- eller komitéverv?",
     board_note_desc: "Valg til Hovedstyret avholdes årlig. Vi rekrutterer også fortløpende motiverte studenter til arrangement-, case- og markedsutvalg. Ta kontakt for å bli med!",
     board_btn_contact: "Kontakt styret",
+
+    // For Members Page
+    members_hero_tag: "Medlemsportal & Ressurser",
+    members_hero_title: "UiA Case Club Medlemmer",
+    members_hero_desc: "Få tilgang til samlingsplaner, casearkiv, metodikk-verktøy og fellesskap. Alt du trenger for å utvikle deg som caseløser ved Universitetet i Agder.",
+    cert_badge: "Offisiell Bekreftelse",
+    cert_title: "Ønsker du medlemsbevis eller diplom?",
+    cert_desc: "Aktive medlemmer kan be om et offisielt diplom og bekreftelse på medlemskap fra UiA Case Club til bruk på CV og LinkedIn. Send oss en e-post med ditt navn og studieprogram, så utsteder styret ditt personlige medlemsbevis.",
+    cert_btn_email: "Be om medlemsbevis via e-post",
+    cert_btn_copy: "Kopier uiacaseclub@gmail.com",
+    cert_toast_copied: "E-postadresse kopiert til utklippstavlen!",
+    members_sec_label: "Medlemshub",
+    members_sec_heading: "Ressurser & Aktiviteter",
+    members_sec_subheading: "Hva du får tilgang til som aktivt medlem i UiA Case Club.",
+    members_c1_title: "Ukentlige Workshops & Caseløsning",
+    members_c1_desc: "Praktiske treningsøkter hver uke. Lær strukturerte hypotesetrær, kvantitative rimelighetsvurderinger og overbevisende formidling.",
+    members_c2_title: "Rammeverk & Presentasjonsmaler",
+    members_c2_desc: "Utvalgte konsulentrammeverk, slide-maler, modeller og caser fra tidligere nasjonale mesterskap.",
+    members_c3_title: "Konkurranser & Delegasjoner",
+    members_c3_desc: "Representer Universitetet i Agder i nasjonale og nordiske casekonkurranser, med tilrettelegging fra foreningen.",
+    members_coming_text: "Flere medlemsressurser lanseres fortløpende, inkludert en intern ressursbank, foredragsopptak og alumni-nettverk. Følg med!",
 
     // Privacy & Compliance Page
     priv_hero_tag: "Juridisk Informasjon & Åpenhet",
@@ -455,11 +595,35 @@ const I18N = {
     priv_s4_title: "4. AI-Åpenhet & Vibe Coding-Erklæring (EU AI Act art. 50)",
     priv_s4_text: "I henhold til artikkel 50 i EUs forordning om kunstig intelligens (EU AI Act - Forordning (EU) 2024/1689), opplyser vi åpent om at nettstedets tekniske kildekode, strukturelle oppbygning og grafiske designelementer er generert med bistand av kunstig intelligens ('Vibe coding'). Alt innhold, organisatorisk informasjon og ressurser er kvalitetssikret og publisert under menneskelig redaksjonelt ansvar av styret i UiA Case Club.",
     priv_s5_title: "5. Opphavsrett & Eksterne Lenker (Åndsverkloven)",
-    priv_s5_text: "Alt originalt innhold, tekster og grafikk er beskyttet i henhold til åndsverkloven. Navnet og logoen til Universitetet i Agder tilhører Universitetet i Agder. Nettstedet inneholder lenker til eksterne tjenester (Google Forms, Instagram, LinkedIn); UiA Case Club har ikke ansvar for tredjeparters personvernpraksis eller eksternt innhold."
+    priv_s5_text: "Alt originalt innhold, tekster og grafikk er beskyttet i henhold til åndsverkloven. Navnet og logoen til Universitetet i Agder tilhører Universitetet i Agder. Nettstedet inneholder lenker til eksterne tjenester (Google Forms, Instagram, LinkedIn); UiA Case Club har ikke ansvar for tredjeparters personvernpraksis eller eksternt innhold.",
+
+    // Join Us Modal
+    join_modal_badge: "UiA Case Club • Innmelding",
+    join_modal_title: "Bli med i UiA Case Club",
+    join_modal_lead: "Åpent for alle studenter på tvers av alle studieretninger. Fyll ut feltene under for å bli med.",
+    join_label_name: "Fullt navn",
+    join_ph_name: "F.eks. Sara Johansen",
+    join_label_email: "E-post (den du ønsker å motta informasjon på)",
+    join_ph_email: "F.eks. student@uia.no",
+    join_label_study: "Studieprogram og årstrinn",
+    join_ph_study: "F.eks. Økonomi og administrasjon, 2. år",
+    join_label_studentid: "Student-ID nummer",
+    join_ph_studentid: "F.eks. 123456",
+    join_optional_tag: "(Valgfritt)",
+    join_label_phone: "Telefonnummer",
+    join_ph_phone: "F.eks. +47 912 34 567",
+    join_privacy_hint: "Informasjonen din behandles konfidensielt i henhold til vår personvernerklæring.",
+    join_btn_submit: "Send innmelding",
+    join_btn_submitting: "Sender innmelding...",
+    join_success_title: "Velkommen til teamet!",
+    join_success_lead: "Din påmelding er registrert. Vi gleder oss stort til å se deg på neste case-samling!",
+    join_success_badge: "Campus Kristiansand • Aktive samlinger",
+    join_btn_done: "Ferdig",
+    toast_delivery_success: "✓ Påmelding levert! Velkommen til UiA Case Club"
   }
 };
 
-let currentLang = localStorage.getItem('uiacc_lang') || 'en';
+let currentLang = localStorage.getItem('uiacc_lang_v2') || 'no';
 
 function initLanguageSwitcher() {
   const btnEn = document.getElementById('lang-btn-en');
@@ -468,7 +632,7 @@ function initLanguageSwitcher() {
 
   function setLanguage(lang) {
     currentLang = lang;
-    localStorage.setItem('uiacc_lang', lang);
+    localStorage.setItem('uiacc_lang_v2', lang);
     document.documentElement.lang = lang;
 
     if (btnEn && btnNo) {
@@ -495,6 +659,58 @@ function initLanguageSwitcher() {
       }
     });
 
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (dict[key]) {
+        el.setAttribute('placeholder', dict[key]);
+      }
+    });
+
+    document.querySelectorAll('.prev-board-item').forEach(item => {
+      const toggleText = item.querySelector('.prev-board-toggle-text');
+      if (toggleText) {
+        const isOpen = item.classList.contains('is-open');
+        toggleText.textContent = isOpen 
+          ? (lang === 'no' ? 'Skjul' : 'Hide Board')
+          : (lang === 'no' ? 'Vis styre' : 'Show Board');
+      }
+    });
+
+    // Dynamically update document tab title based on current page and language
+    const pagePath = window.location.pathname.toLowerCase();
+    const pageTitleMap = {
+      en: {
+        home: "UiA Case Club | Home",
+        about: "UiA Case Club | About",
+        board: "UiA Case Club | Board",
+        members: "UiA Case Club | For Members",
+        privacy: "UiA Case Club | Privacy & Terms",
+        notFound: "UiA Case Club | Page Not Found"
+      },
+      no: {
+        home: "UiA Case Club | Hjem",
+        about: "UiA Case Club | Om oss",
+        board: "UiA Case Club | Styret",
+        members: "UiA Case Club | For medlemmer",
+        privacy: "UiA Case Club | Personvern & Vilkår",
+        notFound: "UiA Case Club | Side ikke funnet"
+      }
+    };
+    const titles = pageTitleMap[lang] || pageTitleMap.no;
+    if (pagePath.includes('about.html') || pagePath.endsWith('/about')) {
+      document.title = titles.about;
+    } else if (pagePath.includes('board.html') || pagePath.endsWith('/board')) {
+      document.title = titles.board;
+    } else if (pagePath.includes('members.html') || pagePath.endsWith('/members')) {
+      document.title = titles.members;
+    } else if (pagePath.includes('privacy.html') || pagePath.endsWith('/privacy')) {
+      document.title = titles.privacy;
+    } else if (pagePath.includes('404.html') || pagePath.endsWith('/404')) {
+      document.title = titles.notFound;
+    } else {
+      document.title = titles.home;
+    }
+
     setTimeout(updateAudienceGlider, 50);
   }
 
@@ -516,6 +732,8 @@ function initActiveNavLink() {
     currentKey = 'about';
   } else if (path.includes('board.html') || path.endsWith('/board')) {
     currentKey = 'board';
+  } else if (path.includes('members.html') || path.endsWith('/members')) {
+    currentKey = 'members';
   } else if (path.includes('privacy.html') || path.endsWith('/privacy')) {
     currentKey = 'privacy';
   }
@@ -529,6 +747,8 @@ function initActiveNavLink() {
     } else if (currentKey === 'about' && linkHref.includes('about.html')) {
       link.classList.add('active');
     } else if (currentKey === 'board' && linkHref.includes('board.html')) {
+      link.classList.add('active');
+    } else if (currentKey === 'members' && linkHref.includes('members.html')) {
       link.classList.add('active');
     }
   });
@@ -711,6 +931,42 @@ function initFaqAccordion() {
 }
 
 /* ==========================================================================
+   5b. Previous Boards Expandable Accordion
+   ========================================================================== */
+function initPreviousBoardsAccordion() {
+  const items = document.querySelectorAll('.prev-board-item');
+  if (!items.length) return;
+
+  items.forEach(item => {
+    const header = item.querySelector('.prev-board-header');
+    const content = item.querySelector('.prev-board-content');
+    const toggleText = item.querySelector('.prev-board-toggle-text');
+
+    if (!header || !content) return;
+
+    header.addEventListener('click', () => {
+      const isOpen = item.classList.contains('is-open');
+
+      if (isOpen) {
+        item.classList.remove('is-open');
+        header.setAttribute('aria-expanded', 'false');
+        content.hidden = true;
+        if (toggleText) {
+          toggleText.textContent = currentLang === 'no' ? 'Vis styre' : 'Show Board';
+        }
+      } else {
+        item.classList.add('is-open');
+        header.setAttribute('aria-expanded', 'true');
+        content.hidden = false;
+        if (toggleText) {
+          toggleText.textContent = currentLang === 'no' ? 'Skjul' : 'Hide Board';
+        }
+      }
+    });
+  });
+}
+
+/* ==========================================================================
    6. Morphing Contact Us Widget
    ========================================================================== */
 function initMorphingContactWidget() {
@@ -827,12 +1083,12 @@ function initWhatIsCaseModal() {
    8. Copy Email Utility & Toast
    ========================================================================== */
 function initEmailCopyUtility() {
-  const copyBtn = document.getElementById('copy-email-btn');
-  if (copyBtn) {
-    copyBtn.addEventListener('click', () => {
+  document.querySelectorAll('#copy-email-btn, #modal-copy-email-btn, #cert-copy-email-btn, .btn-copy-email').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
       copyToClipboard('uiacaseclub@gmail.com');
     });
-  }
+  });
 }
 
 async function copyToClipboard(text) {
@@ -856,15 +1112,22 @@ async function copyToClipboard(text) {
   }
 }
 
-function showToast(msg) {
+let toastTimer = null;
+function showToast(msg, duration = 2600) {
   const toast = document.getElementById('toast');
   if (!toast) return;
 
+  if (toastTimer) {
+    clearTimeout(toastTimer);
+    toastTimer = null;
+  }
+
   toast.textContent = msg;
   toast.classList.add('show');
-  setTimeout(() => {
+  toastTimer = setTimeout(() => {
     toast.classList.remove('show');
-  }, 2600);
+    toastTimer = null;
+  }, duration);
 }
 
 /* ==========================================================================
@@ -901,3 +1164,286 @@ function initDynamicYear() {
     yearEl.textContent = new Date().getFullYear();
   }
 }
+
+/* ==========================================================================
+   11. Settings Wheel & Morphing Display Toolbar (Theme & Text Size)
+   ========================================================================== */
+function initSettingsWidget() {
+  const widget = document.getElementById('settings-widget');
+  const wheelBtn = document.getElementById('settings-wheel-btn');
+  const pane = document.getElementById('settings-toolbar-pane');
+
+  const btnLight = document.getElementById('btn-theme-light');
+  const btnDark = document.getElementById('btn-theme-dark');
+  const themeTrack = document.getElementById('theme-pill-track');
+
+  const btnSmall = document.getElementById('btn-size-small');
+  const btnNormal = document.getElementById('btn-size-normal');
+  const btnLarge = document.getElementById('btn-size-large');
+  const sizeTrack = document.getElementById('size-pill-track');
+
+  if (!widget || !wheelBtn) return;
+
+  // 1. Theme State & Smooth Glitch-Free Switcher
+  let savedTheme = localStorage.getItem('uiacc_theme') || 'light';
+  applyTheme(savedTheme, false);
+
+  function applyTheme(theme, animate = true) {
+    if (animate) {
+      document.documentElement.classList.add('theme-transitioning');
+      setTimeout(() => {
+        document.documentElement.classList.remove('theme-transitioning');
+      }, 300);
+    }
+
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('uiacc_theme', theme);
+
+    if (themeTrack) {
+      if (theme === 'dark') {
+        themeTrack.classList.add('is-dark');
+      } else {
+        themeTrack.classList.remove('is-dark');
+      }
+    }
+
+    if (btnLight && btnDark) {
+      if (theme === 'dark') {
+        btnDark.classList.add('active');
+        btnDark.setAttribute('aria-pressed', 'true');
+        btnLight.classList.remove('active');
+        btnLight.setAttribute('aria-pressed', 'false');
+      } else {
+        btnLight.classList.add('active');
+        btnLight.setAttribute('aria-pressed', 'true');
+        btnDark.classList.remove('active');
+        btnDark.setAttribute('aria-pressed', 'false');
+      }
+    }
+  }
+
+  if (btnLight) {
+    btnLight.addEventListener('click', (e) => {
+      e.stopPropagation();
+      applyTheme('light', true);
+    });
+  }
+
+  if (btnDark) {
+    btnDark.addEventListener('click', (e) => {
+      e.stopPropagation();
+      applyTheme('dark', true);
+    });
+  }
+
+  // 2. Text Size State & Pure CSS Hardware Scaler
+  let savedSize = localStorage.getItem('uiacc_text_size') || 'normal';
+  applyTextSize(savedSize);
+
+  function applyTextSize(size) {
+    document.documentElement.setAttribute('data-text-size', size);
+    localStorage.setItem('uiacc_text_size', size);
+
+    if (sizeTrack) {
+      sizeTrack.classList.remove('is-small', 'is-normal', 'is-large');
+      sizeTrack.classList.add(`is-${size}`);
+    }
+
+    if (btnSmall && btnNormal && btnLarge) {
+      [btnSmall, btnNormal, btnLarge].forEach(btn => btn.classList.remove('active'));
+      if (size === 'small') btnSmall.classList.add('active');
+      else if (size === 'large') btnLarge.classList.add('active');
+      else btnNormal.classList.add('active');
+    }
+  }
+
+  if (btnSmall) {
+    btnSmall.addEventListener('click', (e) => {
+      e.stopPropagation();
+      applyTextSize('small');
+    });
+  }
+
+  if (btnNormal) {
+    btnNormal.addEventListener('click', (e) => {
+      e.stopPropagation();
+      applyTextSize('normal');
+    });
+  }
+
+  if (btnLarge) {
+    btnLarge.addEventListener('click', (e) => {
+      e.stopPropagation();
+      applyTextSize('large');
+    });
+  }
+
+  // 3. Toggle Expanding Inline Toolbar (Expands leftward over EN/NO)
+  wheelBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = widget.classList.contains('is-open');
+    if (isOpen) {
+      closeToolbar();
+    } else {
+      openToolbar();
+    }
+  });
+
+  function openToolbar() {
+    widget.classList.add('is-open');
+    wheelBtn.setAttribute('aria-expanded', 'true');
+    if (pane) pane.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeToolbar() {
+    widget.classList.remove('is-open');
+    wheelBtn.setAttribute('aria-expanded', 'false');
+    if (pane) pane.setAttribute('aria-hidden', 'true');
+  }
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (widget.classList.contains('is-open') && !widget.contains(e.target)) {
+      closeToolbar();
+    }
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && widget.classList.contains('is-open')) {
+      closeToolbar();
+    }
+  });
+}
+
+/* ==========================================================================
+   14. Join Us Interactive Modal (Embedded Google Form & Logo Animation)
+   ========================================================================== */
+function initJoinModal() {
+  const backdrop = document.getElementById('join-modal-backdrop');
+  const modal = document.getElementById('join-modal');
+  const closeBtn = document.getElementById('join-modal-close-btn');
+  const doneBtn = document.getElementById('join-done-btn');
+  const form = document.getElementById('join-form');
+  const paneForm = document.getElementById('join-pane-form');
+  const paneSuccess = document.getElementById('join-pane-success');
+  const submitBtn = document.getElementById('join-submit-btn');
+  const triggerBtns = document.querySelectorAll('.btn-join-trigger');
+
+  if (!modal || !backdrop) return;
+
+  const openModal = () => {
+    // Smoothly collapse mobile menu if open
+    const navWrapper = document.getElementById('main-nav-wrapper');
+    const mobileBackdrop = document.getElementById('mobile-nav-backdrop');
+    const mobileBtn = document.getElementById('mobile-nav-btn');
+    const expandedPane = document.getElementById('mobile-expanded-pane');
+    if (navWrapper && navWrapper.classList.contains('is-expanded')) {
+      navWrapper.classList.remove('is-expanded');
+      if (mobileBackdrop) {
+        mobileBackdrop.classList.remove('is-open');
+        mobileBackdrop.setAttribute('aria-hidden', 'true');
+      }
+      if (expandedPane) expandedPane.setAttribute('aria-hidden', 'true');
+      if (mobileBtn) mobileBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    backdrop.classList.add('is-open');
+    modal.classList.add('is-open');
+    backdrop.setAttribute('aria-hidden', 'false');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    setTimeout(() => {
+      const firstInput = document.getElementById('join-name');
+      if (firstInput && paneForm && paneForm.style.display !== 'none') {
+        firstInput.focus();
+      }
+    }, 120);
+  };
+
+  const closeModal = () => {
+    backdrop.classList.remove('is-open');
+    modal.classList.remove('is-open');
+    backdrop.setAttribute('aria-hidden', 'true');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+
+    // Reset views after closing transition completes
+    setTimeout(() => {
+      if (paneForm && paneSuccess && paneSuccess.style.display !== 'none') {
+        paneForm.style.display = '';
+        paneSuccess.style.display = 'none';
+        if (form) form.reset();
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          const dict = I18N[currentLang] || I18N.en;
+          const btnText = submitBtn.querySelector('.btn-text');
+          if (btnText) btnText.textContent = dict.join_btn_submit;
+        }
+      }
+    }, 400);
+  };
+
+  triggerBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openModal();
+    });
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (doneBtn) doneBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+      closeModal();
+    }
+  });
+
+  if (form) {
+    form.addEventListener('submit', () => {
+      const dict = I18N[currentLang] || I18N.en;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        const btnText = submitBtn.querySelector('.btn-text');
+        if (btnText) btnText.textContent = dict.join_btn_submitting;
+      }
+
+      // Extra insurance background fetch to ensure Google Forms gets the response
+      try {
+        const formData = new FormData(form);
+        fetch(form.action, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: formData
+        }).catch(() => {});
+      } catch (err) {}
+
+      // Transition to celebratory success screen
+      setTimeout(() => {
+        if (paneForm && paneSuccess) {
+          paneForm.style.display = 'none';
+          paneSuccess.style.display = 'block';
+
+          // Restart animation on logo squares spinner
+          const spinner = document.getElementById('logo-squares-spinner');
+          if (spinner) {
+            spinner.style.display = 'none';
+            void spinner.offsetWidth; // Trigger reflow
+            spinner.style.display = '';
+          }
+
+          // Trigger persistent bottom toast notification (stays 6 seconds)
+          const toastMsg = dict.toast_delivery_success || (currentLang === 'no'
+            ? '✓ Påmelding levert! Velkommen til UiA Case Club'
+            : '✓ Delivery successful! Welcome to UiA Case Club');
+          showToast(toastMsg, 6000);
+        }
+      }, 350);
+    });
+  }
+}
+

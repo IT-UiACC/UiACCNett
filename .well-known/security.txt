@@ -1,0 +1,8 @@
+# Security Policy for UiA Case Club (https://uiacaseclub.no)
+# Standard RFC 9116 security disclosure
+
+Contact: mailto:uiacaseclub@gmail.com
+Expires: 2028-01-01T00:00:00.000Z
+Preferred-Languages: no, en
+Canonical: https://uiacaseclub.no/.well-known/security.txt
+Policy: https://uiacaseclub.no/privacy.html

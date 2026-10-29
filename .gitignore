@@ -19,3 +19,12 @@ npm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Secrets & Environment variables
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.cert
+*.pfx

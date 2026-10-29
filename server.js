@@ -9,6 +9,9 @@ const MIME_TYPES = {
   '.css': 'text/css; charset=UTF-8',
   '.js': 'application/javascript; charset=UTF-8',
   '.json': 'application/json; charset=UTF-8',
+  '.xml': 'application/xml; charset=UTF-8',
+  '.txt': 'text/plain; charset=UTF-8',
+  '.webmanifest': 'application/manifest+json; charset=UTF-8',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
@@ -29,12 +32,30 @@ const server = http.createServer((req, res) => {
     safePath = '/index.html';
   }
 
-  const filePath = path.join(__dirname, safePath);
+  const filePath = path.resolve(__dirname, '.' + (safePath.startsWith('/') ? safePath : '/' + safePath));
+
+  // Security: prevent directory traversal outside root directory and block hidden/sensitive files (.git, .env)
+  const isOutsideRoot = !filePath.startsWith(__dirname);
+  const isSensitive = filePath.slice(__dirname.length).split(path.sep).some(part => part.startsWith('.git') || part.startsWith('.env'));
+
+  if (isOutsideRoot || isSensitive) {
+    res.writeHead(403, { 'Content-Type': 'text/plain; charset=UTF-8' });
+    res.end('403 Forbidden');
+    return;
+  }
 
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
-      res.writeHead(404, { 'Content-Type': 'text/plain; charset=UTF-8' });
-      res.end('404 Not Found');
+      const notFoundPath = path.join(__dirname, '404.html');
+      fs.readFile(notFoundPath, (e404, content404) => {
+        if (!e404) {
+          res.writeHead(404, { 'Content-Type': 'text/html; charset=UTF-8' });
+          res.end(content404);
+        } else {
+          res.writeHead(404, { 'Content-Type': 'text/plain; charset=UTF-8' });
+          res.end('404 Not Found');
+        }
+      });
       return;
     }
 
@@ -58,7 +79,8 @@ const server = http.createServer((req, res) => {
 });
 
 function listen(port) {
-  server.listen(port, () => {
+  // Bind exclusively to 127.0.0.1 (localhost) to prevent external local network access
+  server.listen(port, '127.0.0.1', () => {
     console.log(`====================================================`);
     console.log(`🚀 UiA Case Club Website is live locally!`);
     console.log(`🌐 Localhost URL: http://localhost:${port}`);
@@ -78,3 +100,4 @@ function listen(port) {
 }
 
 listen(START_PORT);
+

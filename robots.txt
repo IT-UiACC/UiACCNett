@@ -1,0 +1,8 @@
+# Robots.txt for UiA Case Club (https://uiacaseclub.no)
+# Compliant with Googlebot, Bingbot, and modern search crawlers
+
+User-agent: *
+Allow: /
+
+# Canonical XML Sitemap location
+Sitemap: https://uiacaseclub.no/sitemap.xml
